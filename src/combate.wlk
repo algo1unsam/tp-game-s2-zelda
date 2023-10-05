@@ -8,8 +8,8 @@ class Batalla{
 		//seteo el campo de batalla
 		game.clear()
 		game.ground("ground.png")
-		game.height(15) //cambio las dimensione spor las dudas
-		game.width(15)
+		game.height(13) //cambio las dimensione spor las dudas
+		game.width(20)
 		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))
@@ -21,28 +21,28 @@ class Batalla{
 		
 		//agrego mi cuadro de habilidades
 		const root = new CuadroTexto()
-		root.position(game.at(1,0))
+		root.position(game.at(3,0))
 		game.addVisual(root)
 		
 		
-		//agrego las habilidades
-		const arriba_izq = new CuadroHabilidad()
-		const abajo_izq = new CuadroHabilidad()
-		const abajo_der = new CuadroHabilidad()
-		const arriba_der = new CuadroHabilidad()
+		//agrego las habilidades--se puede hacer con una lista
+		const ataque = new CuadroHabilidad(image = "boton_ataque.png")
+		const defensa = new CuadroHabilidad(image = "boton_defensa.png")
+		const curarse = new CuadroHabilidad(image = "boton_curarse.png")
+		const mover = new CuadroHabilidad(image = "boton_moverse.png")
 		
-		//losposiciono dentro de mi marco
-		arriba_izq.position(game.at(2,1))
-		arriba_der.position(game.at(5,1))
-		abajo_der.position(game.at(8,1))
-		abajo_izq.position(game.at(11,1))
+		//los posiciono dentro de mi marco
+		ataque.position(game.at(4,1))
+		defensa.position(game.at(7,1))
+		curarse.position(game.at(11,1))
+		mover.position(game.at(14,1))
 		
 		
 		//agrego los botones
-		game.addVisual(arriba_izq)
-		game.addVisual(abajo_izq)
-		game.addVisual(arriba_der)
-		game.addVisual(abajo_der)
+		game.addVisual(ataque)
+		game.addVisual(defensa)
+		game.addVisual(curarse)
+		game.addVisual(mover)
 				
 		
 	}
@@ -52,12 +52,12 @@ class Batalla{
 //objeto que va a tener el cuadro con opciones
 class CuadroTexto{
 	var property position = new Position()
+	var property image = "cuadro.png"
 	
-	method image() = "cuadro.png"
+
 }
 
 class CuadroHabilidad inherits CuadroTexto{
-	override method image() = "ggg.png"
 }
 
 
