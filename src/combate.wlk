@@ -33,10 +33,12 @@ class Batalla{
 		
 		//losposiciono dentro de mi marco
 		arriba_izq.position(game.at(2,1))
-		arriba_der.position(game.at(3,1))
-		abajo_der.position(game.at(4,1))
-		abajo_izq.position(game.at(5,1))
+		arriba_der.position(game.at(5,1))
+		abajo_der.position(game.at(8,1))
+		abajo_izq.position(game.at(11,1))
 		
+		
+		//agrego los botones
 		game.addVisual(arriba_izq)
 		game.addVisual(abajo_izq)
 		game.addVisual(arriba_der)
@@ -55,7 +57,7 @@ class CuadroTexto{
 }
 
 class CuadroHabilidad inherits CuadroTexto{
-	override method image() = "habilidad.png"
+	override method image() = "ggg.png"
 }
 
 
