@@ -58,6 +58,8 @@ class CuadroTexto{
 }
 
 class CuadroHabilidad inherits CuadroTexto{
+	
+	
 }
 
 
@@ -76,3 +78,26 @@ object ganon{
 	
 }
 
+
+//continuar aca
+object keyboardConfig{
+	var property free = false
+	
+	method empezar()
+	{
+		keyboard.num4().onPressDo{self.liberarHeroe()}
+		keyboard.enter().onPressDo{self.liberarHeroe()}
+	}
+	
+	method liberarHeroe()
+	{
+		if(free){
+			game.removeVisual(heroe)
+			game.addVisual(heroe)
+		}else{
+			free = true
+			game.removeVisual(heroe)
+			game.addVisualCharacter(heroe)
+		}
+	}
+}
