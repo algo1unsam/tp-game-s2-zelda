@@ -6,9 +6,10 @@ class Batalla{
 	
 	method iniciar(){
 		//seteo el campo de batalla
+		game.clear()
 		game.ground("ground.png")
-		game.height(10) //cambio las dimensione spor las dudas
-		game.width(10)
+		game.height(15) //cambio las dimensione spor las dudas
+		game.width(15)
 		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))
@@ -18,7 +19,18 @@ class Batalla{
 		game.addVisual(_heroe)
 		game.addVisual(enemigo)
 		
+		//agrego mi cuadro de texto
+		cuadroTexto.position(game.at(5,10))
+		game.addVisual(cuadroTexto)
+		
 	}
+}
+
+object cuadroTexto{
+	var property position
+	
+	
+	method image() = "cuadro.png"
 }
 
 
@@ -36,3 +48,4 @@ object ganon{
 	method image() = "jefe_1.png"
 	
 }
+
