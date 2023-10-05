@@ -19,18 +19,43 @@ class Batalla{
 		game.addVisual(_heroe)
 		game.addVisual(enemigo)
 		
-		//agrego mi cuadro de texto
-		cuadroTexto.position(game.at(5,10))
-		game.addVisual(cuadroTexto)
+		//agrego mi cuadro de habilidades
+		const root = new CuadroTexto()
+		root.position(game.at(1,0))
+		game.addVisual(root)
+		
+		
+		//agrego las habilidades
+		const arriba_izq = new CuadroHabilidad()
+		const abajo_izq = new CuadroHabilidad()
+		const abajo_der = new CuadroHabilidad()
+		const arriba_der = new CuadroHabilidad()
+		
+		//losposiciono dentro de mi marco
+		arriba_izq.position(game.at(2,1))
+		arriba_der.position(game.at(3,1))
+		abajo_der.position(game.at(4,1))
+		abajo_izq.position(game.at(5,1))
+		
+		game.addVisual(arriba_izq)
+		game.addVisual(abajo_izq)
+		game.addVisual(arriba_der)
+		game.addVisual(abajo_der)
+				
 		
 	}
 }
 
-object cuadroTexto{
-	var property position
-	
+
+//objeto que va a tener el cuadro con opciones
+class CuadroTexto{
+	var property position = new Position()
 	
 	method image() = "cuadro.png"
+}
+
+class CuadroHabilidad inherits CuadroTexto{
+	override method image() = "habilidad.png"
 }
 
 
