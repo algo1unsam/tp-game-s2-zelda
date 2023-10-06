@@ -69,6 +69,8 @@ object heroe{
 	var property position = game.center()
 	
 	method image() = "pj_derecha.png"
+	
+	
 }
 
 object ganon{
@@ -78,26 +80,34 @@ object ganon{
 	
 }
 
+object escudo{
+	method defender(){}
+	method curarse(){}
+}
+
+object espada{
+	method atacar(){}
+}
 
 //continuar aca
 object keyboardConfig{
-	var property free = false
+	var property free = false //en false tengo habilitado el menu de juego, en true el movimientod el personaje
 	
 	method empezar()
 	{
-		keyboard.num4().onPressDo{self.liberarHeroe()}
-		keyboard.enter().onPressDo{self.liberarHeroe()}
+		if (not free){
+			keyboard.num4().onPressDo{self.liberarHeroe()}
+			keyboard.num3().onPressDo{escudo.curarse()}
+			keyboard.num2().onPressDo{escudo.defender()}
+			keyboard.num1().onPressDo{espada.atacar()}
+		}
+		
 	}
 	
+	//checkear como bloquear el menu y habilitar el movimiento del personaje
 	method liberarHeroe()
 	{
-		if(free){
-			game.removeVisual(heroe)
-			game.addVisual(heroe)
-		}else{
-			free = true
-			game.removeVisual(heroe)
-			game.addVisualCharacter(heroe)
-		}
+		
+		
 	}
 }

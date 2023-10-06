@@ -4,8 +4,8 @@ import combate.*
 program juego {
 	game.title("Juego Base")
 	//game.addVisual(pepita)
-	keyboardConfig.empezar()
-	new Batalla().iniciar()
 	
+	new Batalla().iniciar()
+	keyboardConfig.empezar()
 	game.start()
 }
