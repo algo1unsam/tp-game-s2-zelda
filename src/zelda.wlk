@@ -1,4 +1,5 @@
 import wollok.game.*
+import example.*
 
 object zelda {
 
@@ -7,10 +8,16 @@ object zelda {
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
 		game.addVisual(mapa)
-	}	
-	
+		
+		keyboard.up().onPressDo{wollink.mover(wollink.position().up(1))}
+		keyboard.down().onPressDo{wollink.mover(wollink.position().down(1))}
+		keyboard.left().onPressDo{wollink.mover(wollink.position().left(1))}
+		keyboard.right().onPressDo{wollink.mover(wollink.position().right(1))}
+		}
+		
 	method iniciar(){	//metodo que inicia cada objeto del juego
-		prota.iniciar()
+		wollink.iniciar()
+		
 	}
 }
 
@@ -20,14 +27,5 @@ object mapa {		//mapa principal
 	method image() = "mapa.png"
 	
 }
-
-object prota {		//objeto de protagonista para probar cambios de mapa
 	
-	var property position = game.at(3,6)
-	method image() = "pj_abajo.png"
 	
-		
-	method iniciar(){
-		game.addVisual(self)
-	}
-}

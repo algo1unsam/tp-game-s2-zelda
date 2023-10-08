@@ -1,29 +1,27 @@
-class Personaje{
+import wollok.game.*
+
+object wollink{
 	var vida = 100
 	var vivo = true
+	var inventario = #{}
+	//lo que estaba como objeto prota ahora esta aca
+	var property position = game.at(3,6)
+		
+	method iniciar(){
+		game.addVisual(self)
+	}
+	
+	method mover(newPosition){
+		self.position(newPosition)
+	}
+	
+	method recolectar(){
+		
+	}
 	
 	method morir(){
 		vivo = false
 	}
-}
-
-object wollink inherits Personaje{
-	const property inventario = #{}
-	//method imagen() = 
+	method image() = "pj_abajo.png"
 	
-	method recoleccion(){
-		inventario.add()
-	}
-}
-
-object jefe inherits Personaje{
-	//method imagen() = 
-	
-}
-
-object npc{
-	//method imagen()
-	method interactuar(){
-		return 'Hola'
-	}
 }
