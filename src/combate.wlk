@@ -100,6 +100,7 @@ object keyboardConfig{
 			keyboard.num3().onPressDo{escudo.curarse()}
 			keyboard.num2().onPressDo{escudo.defender()}
 			keyboard.num1().onPressDo{espada.atacar()}
+			game.say(heroe, "kill niggers")
 		}
 		
 	}
