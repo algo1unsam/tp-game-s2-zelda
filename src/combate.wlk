@@ -62,41 +62,15 @@ class CuadroHabilidad inherits CuadroTexto{
 	
 }
 
-
-
-//Para debugear mi codigo necesito dos personajes genericos
-object heroe{
-	var property position = game.center()
-	
-	method image() = "pj_derecha.png"
-	
+class ObjetoInvisible{
+	var position = new Position()
+	var property image
 	
 }
 
-object ganon{
-	var property position = game.center()
-	
-	method image() = "jefe_1.png"
-	
-	
-	method atacar()
-	{
-		
-	}
-}
 
-object escudo{
-	method defender(){}
-	method curarse(){}
-}
 
-object espada{
-	method atacar(){}
-}
 
-object arco{
-	method atacar(){}
-}
 
 //continuar aca
 object keyboardConfig{
@@ -115,7 +89,7 @@ object keyboardConfig{
 			keyboard.enter().onPressDo{asignarTurno.turnoGanon()}
 	}
 
-//no se pude desactivar el teclado? las teclas se superponen
+//no se pude desactivar el teclado? las teclas se superponen//probar con delay para habilidades(problema con acumular habilidades//
 	
 //	method desactivarTeclado(){
 //			game.schedule(1000, {=>self.empezar()})
@@ -149,4 +123,41 @@ object asignarTurno {
 //		keyboardConfig.desactivarTeclado()
 		ganon.atacar()
 	}
+}
+
+
+
+//Para debugear mi codigo necesito dos personajes genericos
+object heroe{
+	var property position = game.center()
+	
+	method image() = "pj_derecha.png"
+	
+	
+	
+}
+
+object ganon{
+	var property position = game.center()
+	
+	method image() = "jefe_1.png"
+	
+	
+	method atacar()
+	{
+		
+	}
+}
+
+object escudo{
+	method defender(){}
+	method curarse(){}
+}
+
+object espada{
+	method atacar(){}
+}
+
+object arco{
+	method atacar(){}
 }
