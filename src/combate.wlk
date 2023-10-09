@@ -78,6 +78,11 @@ object ganon{
 	
 	method image() = "jefe_1.png"
 	
+	
+	method atacar()
+	{
+		
+	}
 }
 
 object escudo{
@@ -89,26 +94,59 @@ object espada{
 	method atacar(){}
 }
 
+object arco{
+	method atacar(){}
+}
+
 //continuar aca
 object keyboardConfig{
-	var property free = false //en false tengo habilitado el menu de juego, en true el movimientod el personaje
+	//var property free = true //me habilita a hacer mis turnos
 	
 	method empezar()
 	{
-		if (not free){
-			keyboard.num4().onPressDo{self.liberarHeroe()}
+			keyboard.num4().onPressDo{arco.atacar()}
 			keyboard.num3().onPressDo{escudo.curarse()}
 			keyboard.num2().onPressDo{escudo.defender()}
 			keyboard.num1().onPressDo{espada.atacar()}
-			game.say(heroe, "kill niggers")
-		}
-		
+			keyboard.up().onPressDo{heroe.position(heroe.position().up(1))}
+			keyboard.down().onPressDo{heroe.position(heroe.position().down(1))}
+			keyboard.right().onPressDo{heroe.position(heroe.position().right(1))}
+			keyboard.left().onPressDo{heroe.position(heroe.position().left(1))}
+			keyboard.enter().onPressDo{asignarTurno.turnoGanon()}
+	}
+
+//no se pude desactivar el teclado? las teclas se superponen
+	
+//	method desactivarTeclado(){
+//			game.schedule(1000, {=>self.empezar()})
+//			keyboard.num4().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.num3().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.num2().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.num1().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.up().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.down().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.right().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.left().onPressDo{heroe.position(heroe.position().down(1))}
+//			keyboard.enter().onPressDo{heroe.position(heroe.position().down(1))}
+//			
+//	}
+	
+	method nada(){
+		heroe.position(heroe.position())
+	}
+}
+
+
+object asignarTurno {
+	
+	method turnoHeroe()
+	{
+//		keyboardConfig.empezar()
 	}
 	
-	//checkear como bloquear el menu y habilitar el movimiento del personaje
-	method liberarHeroe()
+	method turnoGanon()
 	{
-		
-		
+//		keyboardConfig.desactivarTeclado()
+		ganon.atacar()
 	}
 }
