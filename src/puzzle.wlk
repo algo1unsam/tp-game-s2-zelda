@@ -1,9 +1,9 @@
 import wollok.game.*
 object juego{
 	method iniciar(){
-		 game.onTick(250, "boton1", { if (boton1.estaApretado()) boton1.apretarBoton()})
-		 game.onTick(250, "boton2", { if (boton2.estaApretado()) boton2.apretarBoton()})
-		 game.onTick(250, "boton3", { if (boton3.estaApretado()) boton3.apretarBoton()})
+		 game.onTick(150, "boton1", { if (boton1.estaApretado()) boton1.apretarBoton()})
+		 game.onTick(150, "boton2", { if (boton2.estaApretado()) boton2.apretarBoton()})
+		 game.onTick(150, "boton3", { if (boton3.estaApretado()) boton3.apretarBoton()})
 	}
 }
 object wollink{
@@ -26,16 +26,7 @@ class Botones{
 		}
 		else "boton.png"
 	}
-//Valido cada posición de la lista
-	method primerBoton(){
-		return self == cofre.orden().first()
-	}
-	method segundoBoton(){
-		return self == cofre.orden().get(1)
-	}
-	method tercerBoton(){
-		return self == cofre.orden().get(2)
-	}
+
 	
 //Agrega el boton que aprieto a la lista (sólo si no esta apretado)
 //Si es el correcto, cambia el estado a "apretado".
@@ -51,9 +42,7 @@ class Botones{
 	}
 //Devuelve verdadero si el boton que estoy apretando es el correcto
 	method validarOrden(){
-		if (cofre.apretados().size() == 1) {return self.primerBoton()}
-		else if (cofre.apretados().size() == 2) {return self.segundoBoton()}
-		else {return self.tercerBoton()}
+		return self == cofre.orden().get(cofre.apretados().size()-1)
 	} 	
 }
 
