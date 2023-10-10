@@ -19,30 +19,35 @@ class Batalla{
 		game.addVisual(_heroe)
 		game.addVisual(enemigo)
 		
-		//agrego mi cuadro de habilidades
-		const root = new CuadroTexto()
-		root.position(game.at(3,0))
-		game.addVisual(root)
+		//activo onticks
+		game.onTick(10000,"ganon moverse",{=>ganon.moverse()}
 		
-		
-		//agrego las habilidades--se puede hacer con una lista
-		const ataque = new CuadroHabilidad(image = "boton_ataque.png")
-		const defensa = new CuadroHabilidad(image = "boton_defensa.png")
-		const curarse = new CuadroHabilidad(image = "boton_curarse.png")
-		const mover = new CuadroHabilidad(image = "boton_moverse.png")
-		
-		//los posiciono dentro de mi marco
-		ataque.position(game.at(4,1))
-		defensa.position(game.at(7,1))
-		curarse.position(game.at(11,1))
-		mover.position(game.at(14,1))
-		
+//		//agrego mi cuadro de habilidades
+//		const root = new CuadroTexto()
+//		root.position(game.at(3,0))
+//		game.addVisual(root)
+//		
+//		
+//		//agrego las habilidades--se puede hacer con una lista
+//		const ataque = new CuadroHabilidad(image = "boton_ataque.png")
+//		const defensa = new CuadroHabilidad(image = "boton_defensa.png")
+//		const curarse = new CuadroHabilidad(image = "boton_curarse.png")
+//		const mover = new CuadroHabilidad(image = "boton_moverse.png")
+//		
+//		//los posiciono dentro de mi marco
+//		ataque.position(game.at(4,1))
+//		defensa.position(game.at(7,1))
+//		curarse.position(game.at(11,1))
+//		mover.position(game.at(14,1))
+//		
 		
 		//agrego los botones
-		game.addVisual(ataque)
-		game.addVisual(defensa)
-		game.addVisual(curarse)
-		game.addVisual(mover)
+//		game.addVisual(ataque)
+//		game.addVisual(defensa)
+//		game.addVisual(curarse)
+//		game.addVisual(mover)
+		
+		
 				
 		
 	}
@@ -78,10 +83,10 @@ object keyboardConfig{
 	
 	method empezar()
 	{
-			keyboard.num4().onPressDo{arco.atacar()}
-			keyboard.num3().onPressDo{escudo.curarse()}
-			keyboard.num2().onPressDo{escudo.defender()}
-			keyboard.num1().onPressDo{espada.atacar()}
+//			keyboard.num4().onPressDo{arco.atacar()}
+//			keyboard.num3().onPressDo{escudo.curarse()}
+//			keyboard.num2().onPressDo{escudo.defender()}
+//			keyboard.num1().onPressDo{espada.atacar()}
 			keyboard.up().onPressDo{heroe.position(heroe.position().up(1))}
 			keyboard.down().onPressDo{heroe.position(heroe.position().down(1))}
 			keyboard.right().onPressDo{heroe.position(heroe.position().right(1))}
@@ -105,25 +110,25 @@ object keyboardConfig{
 //			
 //	}
 	
-	method nada(){
-		heroe.position(heroe.position())
-	}
+//	method nada(){
+//		heroe.position(heroe.position())
+//	}
 }
 
 
-object asignarTurno {
-	
-	method turnoHeroe()
-	{
-//		keyboardConfig.empezar()
-	}
-	
-	method turnoGanon()
-	{
-//		keyboardConfig.desactivarTeclado()
-		ganon.atacar()
-	}
-}
+//object asignarTurno {
+//	
+//	method turnoHeroe()
+//	{
+////		keyboardConfig.empezar()
+//	}
+//	
+//	method turnoGanon()
+//	{
+////		keyboardConfig.desactivarTeclado()
+//		ganon.atacar()
+//	}
+//}
 
 
 
@@ -139,12 +144,40 @@ object heroe{
 
 object ganon{
 	var property position = game.center()
+	var property poder
+	var property vida
 	
 	method image() = "jefe_1.png"
 	
 	
 	method atacar()
 	{
+		
+	}
+	
+	//desplazamiento del enemigo
+	method moverse(){
+		position=game.at(0.randomUpTo(game.width()).truncate(0), 0.randomUpTo(game.height()).truncate(0))
+	}
+	
+	//a mitad de vida va a asubir su ataque en un 25%
+	method rugir(){
+		poder += poder *0.25
+	}
+	
+	// se cura una vez nada mas, 50%
+	method curarse(){
+	}
+	
+	//recibir daño me va  aservir para checkear la vida y fijarme que el cambio de fase
+	method recibirDanio(danio){
+		vida -= danio
+		if (vida <= 25){
+			self.curarse()
+			self.rugir()
+			game.removeTickEvent("ganon moverse")
+			game.onTick(5000,"ganon moverse rapido",{=>self.moverse()})
+		}
 		
 	}
 }
