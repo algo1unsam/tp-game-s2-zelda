@@ -6,26 +6,48 @@ object zelda {
 		game.width(20)
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
-		game.boardGround("mapa.png")
 		config.configurarTeclas()
 		
 	}	
 	
 	method iniciar(){	//metodo que inicia cada objeto del juego
+		mapa.iniciar()
 		prota.iniciar()
-		cambioBosque.iniciar()
+		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
+		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
+		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
+		//salidaBosque.iniciar()		//test2 para ver puerta de bosque
 	}
 }
 
 object mapa {		//mapa principal
-	
 	var property position = game.origin()
-	method image() = "mapa.png"
+	var estaEnBosque = false
 	
+	method image(){
+		return if (estaEnBosque){
+			"bosque.png"
+		} else {
+			"mapa.png"
+		}
+	} 
+	
+	method entraBosque(){
+		estaEnBosque = true
+		prota.cambiarPosicion(9, 1)
+	}
+	
+	method saleBosque(){
+		estaEnBosque = false
+		prota.cambiarPosicion(9,7)
+	}
+	
+	method iniciar(){
+		game.addVisual(self)
+	}
 }
 
 object prota {		//objeto de protagonista para probar cambios de mapa
-	
 	var property position = game.at(3,6)
 	method image() = "pj_abajo.png"
 	
@@ -34,22 +56,38 @@ object prota {		//objeto de protagonista para probar cambios de mapa
 		game.addVisual(self)
 	}
 	
+	method cambiarPosicion(x, y){
+		position = game.at(x, y)
+	}
+	
 	method irA(nuevaPosicion) {
 		position = nuevaPosicion
 	}
 }
 
-object cambioBosque {						//SIN TERMINAR
-	var property position = game.at(5,6)	//cuando choque a la hechicera debe cambiar la imagen al bosque
+object entradaBosque {						
+	var property position = game.at(9,8)
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
-		game.addVisual(self)
-		//game.onCollideDo(cambioBosque, cambioBosque.choque() )
+		//game.addVisual(self)		//visual para Test1 ver donde esta la puerta
 	}
 	
-	method choque(){
-		game.addVisual("bosque.png")
+	method comprueboSiProtaEstaEnEntrada() {	
+		return (prota.position() == self.position())
+	}
+}
+
+object salidaBosque {
+	var property position = game.at(9,0)
+	method image() = "espada.png"		
+	
+	method iniciar(){
+		//game.addVisual(self) 		//visual para Test2 chequear donde esta la salida
+	}
+	
+	method comprueboSiProtaEstaEnSalida() {
+		return (prota.position() == self.position()) 
 	}
 }
 
