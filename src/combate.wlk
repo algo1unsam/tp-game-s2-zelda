@@ -20,7 +20,8 @@ class Batalla{
 		game.addVisual(enemigo)
 		
 		//activo onticks
-		game.onTick(10000,"ganon moverse",{=>ganon.moverse()}
+		game.onTick(10000,"ganon moverse",{=>ganon.moverse()})
+		game.onTick(2000,"ganon atacar",{=>ganon.atacar()})
 		
 //		//agrego mi cuadro de habilidades
 //		const root = new CuadroTexto()
@@ -47,25 +48,22 @@ class Batalla{
 //		game.addVisual(curarse)
 //		game.addVisual(mover)
 		
-		
-				
-		
 	}
 }
 
 
 //objeto que va a tener el cuadro con opciones
-class CuadroTexto{
-	var property position = new Position()
-	var property image = "cuadro.png"
-	
-
-}
-
-class CuadroHabilidad inherits CuadroTexto{
-	
-	
-}
+//class CuadroTexto{
+//	var property position = new Position()
+//	var property image = "cuadro.png"
+//	
+//
+//}
+//
+//class CuadroHabilidad inherits CuadroTexto{
+//	
+//	
+//}
 
 class ObjetoInvisible{
 	var position = new Position()
@@ -91,7 +89,7 @@ object keyboardConfig{
 			keyboard.down().onPressDo{heroe.position(heroe.position().down(1))}
 			keyboard.right().onPressDo{heroe.position(heroe.position().right(1))}
 			keyboard.left().onPressDo{heroe.position(heroe.position().left(1))}
-			keyboard.enter().onPressDo{asignarTurno.turnoGanon()}
+//			keyboard.enter().onPressDo{asignarTurno.turnoGanon()}
 	}
 
 //no se pude desactivar el teclado? las teclas se superponen//probar con delay para habilidades(problema con acumular habilidades//
@@ -152,7 +150,11 @@ object ganon{
 	
 	method atacar()
 	{
-		
+		5.times({=> self.crearCubo()})
+	}
+	
+	method crearCubo(){
+		return new CuboRojo()
 	}
 	
 	//desplazamiento del enemigo
@@ -181,6 +183,17 @@ object ganon{
 		
 	}
 }
+
+
+class CuboRojo{
+	var property position = 0
+	
+	var property image = "nada.jpg"
+	
+	
+}
+
+
 
 object escudo{
 	method defender(){}
