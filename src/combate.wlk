@@ -20,8 +20,8 @@ class Batalla{
 		game.addVisual(enemigo)
 		
 		//activo onticks
-		game.onTick(10000,"ganon moverse",{=>ganon.moverse()})
-		game.onTick(2000,"ganon atacar",{=>ganon.atacar()})
+		game.onTick(8000,"ganon moverse",{=>ganon.moverse()})
+		game.onTick(1500,"ganon atacar",{=>ganon.atacar()})
 		
 //		//agrego mi cuadro de habilidades
 //		const root = new CuadroTexto()
@@ -137,6 +137,8 @@ object heroe{
 	method image() = "pj_derecha.png"
 	
 	
+	method recibirDanio(danio){}
+	
 	
 }
 
@@ -144,17 +146,44 @@ object ganon{
 	var property position = game.center()
 	var property poder
 	var property vida
+	var ataques = 10
+	const property zona_ataque = []
 	
 	method image() = "jefe_1.png"
 	
 	
+	//el ataque de ganon va a ser cuadrados alaeatorios en el mapa que despues de un tiempo hacen daño
 	method atacar()
 	{
-		5.times({=> self.crearCubo()})
+		//llevo en una lista las zonas del mapa ocupadas por sus ataques
+		zona_ataque.forEach{x=>self.removerCubo(x)}
+		
+		//quiero que atque en x lugares a la vez
+		ataques.times{x =>self.crearCubo()}
+		
+		//despues de avisar la zona de peligro, esta hace daño
+		game.schedule(500, {=>self.detonarCubo()})
+		
 	}
 	
+	//creo una zona de peligro en el mapa
 	method crearCubo(){
-		return new CuboRojo()
+		//le asigno una posicion aleatoria
+		var cubo = new CuboRojo(position=game.at(0.randomUpTo(game.width()).truncate(0), 0.randomUpTo(game.height()).truncate(0)))
+		
+		//lo agrego al mapa y a la lista con zonas de peligro
+		game.addVisual(cubo)
+		zona_ataque.add(cubo)
+	}
+	
+	//metodo combinado que elimina a la zona de peligro del tablero y de la lista
+	method removerCubo(cubo){
+		game.removeVisual(cubo)
+		zona_ataque.remove(cubo)
+	}
+	
+	method detonarCubo(){
+		zona_ataque.forEach{x=>x.explotar()}
 	}
 	
 	//desplazamiento del enemigo
@@ -174,24 +203,42 @@ object ganon{
 	//recibir daño me va  aservir para checkear la vida y fijarme que el cambio de fase
 	method recibirDanio(danio){
 		vida -= danio
+		//en el cambio de fase se cura y se vuelve mas agresivo
 		if (vida <= 25){
 			self.curarse()
 			self.rugir()
 			game.removeTickEvent("ganon moverse")
 			game.onTick(5000,"ganon moverse rapido",{=>self.moverse()})
+			ataques = 20
 		}
 		
 	}
 }
 
 
+//zonas rojas de peligro en el piso
 class CuboRojo{
 	var property position = 0
+	var danio = ganon.poder()
 	
-	var property image = "nada.jpg"
+	var property image = "nada.jpg" //aca va la imagen de un cubo rojo
 	
+	
+	//la imagen cambia y la zona esa ahora hace daño si tiene al heroe encima
+	method explotar(){
+		image="pepita.png" //aca va la imagen de una explosion/fuego
+		if game.colliders(self).contains(heroe){
+			heroe.recibirDanio(danio)
+			console.println("auchis")
+		}
+		return image
+	}
+	
+	//¿agregarle colisiones despues de explotar?
 	
 }
+
+
 
 
 

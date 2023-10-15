@@ -5,6 +5,7 @@ program juego {
 	game.title("Juego Base")
 	//game.addVisual(pepita)
 	
+	//el objeto importante que contiene las configuraciones de la batalla
 	new Batalla().iniciar()
 	keyboardConfig.empezar()
 	game.start()
