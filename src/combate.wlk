@@ -171,7 +171,7 @@ object ganon{
 	var property position = game.center()
 	var property poder = 5
 	var property vida
-	var ataques = 10
+	var ataques = 20
 	const property zona_ataque = []
 	
 	method image() = "jefe_1.png"
