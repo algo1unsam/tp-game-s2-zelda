@@ -2,7 +2,7 @@ import wollok.game.*
 
 class Escudo {
 	var property proteccion = 0
-}
+}	
 
 class Espada {
 	var property poder = 0
