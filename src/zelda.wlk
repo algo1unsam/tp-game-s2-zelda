@@ -14,7 +14,7 @@ object zelda {
 		mapa.iniciar()
 		prota.iniciar()
 		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
-		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
+		game.onTick(150, "espada.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
 		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
 		//salidaBosque.iniciar()		//test2 para ver puerta de bosque
 	}
@@ -22,7 +22,7 @@ object zelda {
 
 object mapa {		//mapa principal
 	var property position = game.origin()
-	var estaEnBosque = false
+	var property estaEnBosque = false
 	
 	method image(){
 		return if (estaEnBosque){
@@ -35,11 +35,13 @@ object mapa {		//mapa principal
 	method entraBosque(){
 		estaEnBosque = true
 		prota.cambiarPosicion(9, 1)
-	}
+		//entradaBosque.estaDentro(true)
+		}
 	
 	method saleBosque(){
 		estaEnBosque = false
 		prota.cambiarPosicion(9,7)
+		//entradaBosque.estaDentro(false)
 	}
 	
 	method iniciar(){
@@ -80,6 +82,7 @@ object prota {		//objeto de protagonista para probar cambios de mapa
 
 object entradaBosque {						
 	var property position = game.at(9,8)
+	//var property estaDentro = false
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
@@ -87,8 +90,9 @@ object entradaBosque {
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position())
+		return (prota.position() == self.position()) and not mapa.estaEnBosque()
 	}
+
 }
 
 object salidaBosque {
@@ -100,7 +104,7 @@ object salidaBosque {
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) 
+		return (prota.position() == self.position()) and mapa.estaEnBosque()
 	}
 }
 
