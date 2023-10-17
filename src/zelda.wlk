@@ -49,7 +49,7 @@ object mapa {		//mapa principal
 
 object prota {		//objeto de protagonista para probar cambios de mapa
 	var property position = game.at(3,6)
-	method image() = "pj_abajo.png"
+	var property image =  "pj_abajo.png"
 	
 		
 	method iniciar(){
@@ -62,6 +62,19 @@ object prota {		//objeto de protagonista para probar cambios de mapa
 	
 	method irA(nuevaPosicion) {
 		position = nuevaPosicion
+	}
+	
+	method miraIzquierda(){
+		image = "pj_izquierda.png"
+	}
+	method miraAbajo(){
+		image = "pj_abajo.png"
+	}
+	method miraDerecha(){
+		image = "pj_derecha.png"
+	}
+	method miraArriba(){
+		image = "pj_arriba.png"
 	}
 }
 
@@ -93,9 +106,26 @@ object salidaBosque {
 
 object config {
 		method configurarTeclas() {
-		keyboard.left().onPressDo({ prota.irA(prota.position().left(1)) })
-		keyboard.right().onPressDo({ prota.irA(prota.position().right(1))})
-		keyboard.up().onPressDo({ prota.irA(prota.position().up(1))})
-		keyboard.down().onPressDo({ prota.irA(prota.position().down(1))})
+		keyboard.left().onPressDo({ self.teclaIzquierda()})
+		keyboard.right().onPressDo({ self.teclaDerecha() })
+		keyboard.up().onPressDo({ self.teclaArriba() })
+		keyboard.down().onPressDo({ self.teclaAbajo() })
+		}
+		
+		method teclaIzquierda(){
+			prota.irA(prota.position().left(1))
+			prota.miraIzquierda()
+		}
+		method teclaDerecha(){
+			prota.irA(prota.position().right(1))
+			prota.miraDerecha()
+		}
+		method teclaArriba(){
+			prota.irA(prota.position().up(1))
+			prota.miraArriba()
+		}
+		method teclaAbajo(){
+			prota.irA(prota.position().down(1))
+			prota.miraAbajo()
 		}
 }
