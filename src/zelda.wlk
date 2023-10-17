@@ -1,4 +1,5 @@
 import wollok.game.*
+import combate.*
 
 object zelda {
 
@@ -10,11 +11,13 @@ object zelda {
 		
 	}	
 	
-	method iniciar(){	//metodo que inicia cada objeto del juego
-		mapa.iniciar()
-		prota.iniciar()
-		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
-		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
+	method iniciar(){
+		var b = new Batalla()
+		b.iniciar()	//metodo que inicia cada objeto del juego
+//		mapa.iniciar()
+//		prota.iniciar()
+//		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
+//		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
 		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
 		//salidaBosque.iniciar()		//test2 para ver puerta de bosque
 	}
@@ -51,7 +54,8 @@ object prota {		//objeto de protagonista para probar cambios de mapa
 	var property position = game.at(3,6)
 	var property image =  "pj_abajo.png"
 	
-		
+	var property arr = position.up(1)
+	
 	method iniciar(){
 		game.addVisual(self)
 	}
@@ -105,27 +109,53 @@ object salidaBosque {
 }
 
 object config {
+	
+	var arr=false
+	var aba=false
+	var der=false
+	var izq=false
+	const dir = [arr,aba,der,izq]
+	
 		method configurarTeclas() {
 		keyboard.left().onPressDo({ self.teclaIzquierda()})
 		keyboard.right().onPressDo({ self.teclaDerecha() })
 		keyboard.up().onPressDo({ self.teclaArriba() })
 		keyboard.down().onPressDo({ self.teclaAbajo() })
+		keyboard.s().onPressDo({self.atacar()})
 		}
 		
 		method teclaIzquierda(){
+			self.resetDir()
 			prota.irA(prota.position().left(1))
 			prota.miraIzquierda()
+			izq = true
 		}
 		method teclaDerecha(){
+			self.resetDir()
 			prota.irA(prota.position().right(1))
 			prota.miraDerecha()
+			der = true
 		}
 		method teclaArriba(){
+			self.resetDir()
 			prota.irA(prota.position().up(1))
 			prota.miraArriba()
+			arr = true
 		}
 		method teclaAbajo(){
+			self.resetDir()
 			prota.irA(prota.position().down(1))
 			prota.miraAbajo()
+			aba = true
+		}
+		method resetDir(){
+			 arr=false
+			 aba=false
+			 der=false
+			 izq=false
+		}
+		
+		method atacar(){
+			
 		}
 }
