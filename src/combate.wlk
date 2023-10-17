@@ -7,6 +7,7 @@ class Batalla{
 	method iniciar(){
 		//seteo el campo de batalla
 		game.clear()
+		//a partir de aca hay que sacarlo
 		game.ground("ground.png")
 		game.height(13) //cambio las dimensione spor las dudas
 		game.width(20)
@@ -21,7 +22,7 @@ class Batalla{
 		
 		//activo onticks
 		game.onTick(8000,"ganon moverse",{=>ganon.moverse()})
-		game.onTick(1500,"ganon atacar",{=>ganon.atacar()})
+		game.onTick(2000,"ganon atacar",{=>ganon.atacar()})
 		
 //		//agrego mi cuadro de habilidades
 //		const root = new CuadroTexto()
@@ -133,18 +134,42 @@ object keyboardConfig{
 //Para debugear mi codigo necesito dos personajes genericos
 object heroe{
 	var property position = game.center()
+	var property vida = 100
 	
 	method image() = "pj_derecha.png"
 	
 	
-	method recibirDanio(danio){}
+	method recibirDanio(danio){
+		vida-=danio
+		console.println(vida)
+		game.say(self, "auchis")
+		self.checkMuerto()
+	}
+	
+	//checkeo si la vida es menor o igual a 0
+	method checkMuerto(){
+		if (vida <= 0){
+			self.gameOver()
+		}
+	}
+	
+	//pantalla de game over
+	method gameOver(){
+		game.clear()
+		game.removeTickEvent("ganon moverse")
+		game.removeTickEvent("ganon atacar")
+
+		
+	}
 	
 	
 }
 
+
+
 object ganon{
 	var property position = game.center()
-	var property poder
+	var property poder = 5
 	var property vida
 	var ataques = 10
 	const property zona_ataque = []
@@ -221,20 +246,20 @@ class CuboRojo{
 	var property position = 0
 	var danio = ganon.poder()
 	
-	var property image = "nada.jpg" //aca va la imagen de un cubo rojo
+	var property image = "rojo.jpg" //aca va la imagen de un cubo rojo
 	
 	
 	//la imagen cambia y la zona esa ahora hace daño si tiene al heroe encima
 	method explotar(){
-		image="pepita.png" //aca va la imagen de una explosion/fuego
+		image="explosion.png" //aca va la imagen de una explosion/fuego
 		if game.colliders(self).contains(heroe){
 			heroe.recibirDanio(danio)
-			console.println("auchis")
 		}
+		//si recibe contacto recibe mucho daño
+		game.onCollideDo(heroe, {x=>heroe.recibirDanio(1)})
 		return image
 	}
 	
-	//¿agregarle colisiones despues de explotar?
 	
 }
 
