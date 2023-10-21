@@ -149,13 +149,15 @@ class CuboRojo{
 	//la imagen cambia y la zona esa ahora hace daño si tiene al heroe encima
 	method explotar(){
 		image="explosion.png" //aca va la imagen de una explosion/fuego
-		if game.colliders(self).contains(heroe){
-			heroe.recibirDanio(danio)
-		}
+//		if game.colliders(self).contains(heroe){
+//			heroe.recibirDanio(danio)
+//		}
 		//si recibe contacto recibe mucho daño
 		game.onCollideDo(heroe, {x=>heroe.recibirDanio(1)})
 		return image
 	}
+	
+	method recibirDanio(_danio){}
 	
 	
 }

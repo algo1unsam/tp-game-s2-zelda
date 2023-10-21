@@ -12,14 +12,12 @@ object zelda {
 	}	
 	
 	method iniciar(){
-		var b = new Batalla()
-		b.iniciar()	//metodo que inicia cada objeto del juego
-//		mapa.iniciar()
-//		prota.iniciar()
-//		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
-//		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
-		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
-		//salidaBosque.iniciar()		//test2 para ver puerta de bosque
+		mapa.iniciar()
+		prota.iniciar()
+		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
+		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
+		entradaBosque.iniciar()		//test1 para ver puerta de bosque
+		salidaBosque.iniciar()		//test2 para ver puerta de bosque
 	}
 }
 
@@ -53,7 +51,8 @@ object mapa {		//mapa principal
 object prota {		//objeto de protagonista para probar cambios de mapa
 	var property position = game.at(3,6)
 	var property image =  "pj_abajo.png"
-	
+	var property poder = 0
+	var property dir = new Derecha()
 	var property arr = position.up(1)
 	
 	method iniciar(){
@@ -110,11 +109,6 @@ object salidaBosque {
 
 object config {
 	
-	var arr=false
-	var aba=false
-	var der=false
-	var izq=false
-	const dir = [arr,aba,der,izq]
 	
 		method configurarTeclas() {
 		keyboard.left().onPressDo({ self.teclaIzquierda()})
@@ -125,37 +119,79 @@ object config {
 		}
 		
 		method teclaIzquierda(){
-			self.resetDir()
+			prota.dir(new Izquierda())
 			prota.irA(prota.position().left(1))
 			prota.miraIzquierda()
-			izq = true
 		}
 		method teclaDerecha(){
-			self.resetDir()
+			prota.dir(new Derecha())
 			prota.irA(prota.position().right(1))
 			prota.miraDerecha()
-			der = true
 		}
 		method teclaArriba(){
-			self.resetDir()
+			prota.dir(new Arriba())
 			prota.irA(prota.position().up(1))
 			prota.miraArriba()
-			arr = true
 		}
 		method teclaAbajo(){
-			self.resetDir()
+			prota.dir(new Abajo())
 			prota.irA(prota.position().down(1))
 			prota.miraAbajo()
-			aba = true
-		}
-		method resetDir(){
-			 arr=false
-			 aba=false
-			 der=false
-			 izq=false
 		}
 		
+		
 		method atacar(){
+			//hacemos dañio la celda correspondiente
+			prota.dir().atacar()
+			//agregamos el sprite del ataque al tablero
+			game.addVisual(prota.dir())
+			//necesito una variable temporal que me almacene el visual del ataque, pq sino esta puede cambiar y romperme el codigo
+			var temp = prota.dir() 
 			
+			//eliminamos el sprite del ataque
+			game.schedule(10,{game.removeVisual(temp)})
 		}
 }
+
+
+//superclase que indica la direccion en la que miró el presonaje por ultima vez
+class Direccion{
+	method position(){
+		return prota.position()
+	}
+	
+	//hacemos daño si esta ganon
+	method atacar(){
+		game.getObjectsIn(self.position()).forEach{x=>x.recibirDanio(prota.poder())}
+	}
+	
+}
+
+class Arriba inherits Direccion{
+	var property image = "golpe_arriba.png"
+	override method position(){
+		return prota.position().up(1)
+	}
+}
+
+class Abajo inherits Direccion{
+	var property image = "golpe_abajo.png"
+	override method position(){
+		return prota.position().down(1)
+	}
+}
+
+class Izquierda inherits Direccion{
+	var property image = "golpe_izquierda.png"
+	override method position(){
+		return prota.position().left(1)
+	}
+}
+
+class Derecha inherits Direccion{
+	var property image = "golpe_derecha.png"
+	override method position(){
+		return prota.position().right(1)
+	}
+}
+
