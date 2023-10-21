@@ -136,13 +136,8 @@ object config {
 		
 		method atacar(){
 			//hacemos dañio la celda correspondiente
-			prota.dir().atacar()
-			//agregamos el sprite del ataque al tablero
-			game.addVisual(prota.dir())
-			//necesito una variable temporal que me almacene el visual del ataque, pq sino esta puede cambiar y romperme el codigo
-			var temp = prota.dir() 
-			//eliminamos el sprite del ataque
-			game.schedule(50,{game.removeVisual(temp)})
+			prota.atacar()
+			
 		}
 }
 

@@ -5,14 +5,23 @@ class Personaje{
 	var property position = new Position()
 	var property vida = 100
 	var vivo = true
-	var property poder = 5
+	var property poder = 100
 	
 	method iniciar(){ game.addVisual(self) }
+	
+	method checkMuerto(){
+		if (vida <= 0){
+			game.removeTickEvent("ganon moverse")
+			game.removeTickEvent("ganon atacar")
+			self.morir()
+		}
+	}
 	//la idea es usarlo para terminar el juego		
 	method morir(){	
 		vivo = false
 		game.removeVisual(self)
 	}
+	
 }
 
 
@@ -55,15 +64,22 @@ object prota inherits Personaje(position = game.at(3,6)){
 		self.checkMuerto()
 	}
 	
-	method checkMuerto(){
-		if (vida <= 0){
-			game.removeTickEvent("ganon moverse")
-			game.removeTickEvent("ganon atacar")
-			self.morir()
-		}
+	
+	method atacar(){
+		dir.atacar(poder)
+		//agregamos el sprite del ataque al tablero
+		game.addVisual(dir)
+			//necesito una variable temporal que me almacene el visual del ataque, pq sino esta puede cambiar y romperme el codigo
+		var temp = dir 
+			//eliminamos el sprite del ataque
+		game.schedule(50,{game.removeVisual(temp)})
 	}
 
 }
+
+
+
+
 
 object ganon inherits Personaje(position = game.origin()){
 	var ataques = 10
@@ -149,8 +165,8 @@ class Direccion{
 	}
 	
 	//hacemos daño si esta ganon
-	method atacar(){
-		game.getObjectsIn(self.position()).forEach{x=>x.recibirDanio(prota.poder())}
+	method atacar(poder){
+		game.getObjectsIn(self.position()).forEach{x=>x.recibirDanio(poder)}
 	}
 	
 	method recibirDanio(_danio){}
