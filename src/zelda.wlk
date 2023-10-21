@@ -27,26 +27,42 @@ object zelda {
 
 object mapa {		//mapa principal
 	var property position = game.origin()
-	var estaEnBosque = false
+	var property estaEnBosque = false
+	var property estaEnCastillo = false
+	var property lugar = 'aldea'
+	const sufijo = '.png'
 	
 	method image(){
-		return if (estaEnBosque){
-			"bosque.png"
-		} else {
-			"mapa.png"
-		}
+		
+		return lugar + sufijo
+		//return if (estaEnBosque){
+		//	"bosque.png"
+		//} else {
+		//	"mapa.png"
+		//}
 	} 
 	
 	method entraBosque(){
+		lugar = 'bosque'
 		estaEnBosque = true
 		prota.cambiarPosicion(9, 1)
-	}
+		//entradaBosque.estaDentro(true)
+		}
 	
 	method saleBosque(){
+		lugar = 'aldea'
 		estaEnBosque = false
 		prota.cambiarPosicion(9,7)
+		//entradaBosque.estaDentro(false)
 	}
 	
+	method entraCastillo(){
+		lugar = 'castillo'
+		estaEnCastillo = true
+		prota.cambiarPosicion(1, 1)
+		//entradaBosque.estaDentro(true)
+		}
+		
 	method iniciar(){
 		game.addVisual(self)
 	}
@@ -56,6 +72,7 @@ object mapa {		//mapa principal
 
 object entradaBosque {						
 	var property position = game.at(9,8)
+	//var property estaDentro = false
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
@@ -63,8 +80,9 @@ object entradaBosque {
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position())
+		return (prota.position() == self.position()) and not mapa.estaEnBosque()
 	}
+
 }
 
 object salidaBosque {
@@ -76,7 +94,7 @@ object salidaBosque {
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) 
+		return (prota.position() == self.position()) and mapa.estaEnBosque()
 	}
 }
 
@@ -94,22 +112,22 @@ object config {
 		method teclaIzquierda(){
 			prota.dir(new Izquierda())
 			prota.mover(prota.position().left(1))
-			prota.miraIzquierda()
+			prota.mirar('izquierda')
 		}
 		method teclaDerecha(){
 			prota.dir(new Derecha())
 			prota.mover(prota.position().right(1))
-			prota.miraDerecha()
+			prota.mirar('derecha')
 		}
 		method teclaArriba(){
 			prota.dir(new Arriba())
 			prota.mover(prota.position().up(1))
-			prota.miraArriba()
+			prota.mirar('arriba')
 		}
 		method teclaAbajo(){
 			prota.dir(new Abajo())
 			prota.mover(prota.position().down(1))
-			prota.miraAbajo()
+			prota.mirar('abajo')
 		}
 
 		
