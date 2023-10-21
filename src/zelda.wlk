@@ -1,8 +1,10 @@
 import wollok.game.*
+import personajes.*
 
 object zelda {
 
 	method configurar(){	
+		//config. mapa
 		game.width(20)
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
@@ -129,3 +131,4 @@ object config {
 			prota.miraAbajo()
 		}
 }
+
