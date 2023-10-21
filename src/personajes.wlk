@@ -26,17 +26,12 @@ object prota inherits Personaje(position = game.at(3,6)){
 		self.position(newPosition)
 	}
 	
-	method miraIzquierda(){
-		image = "pj_izquierda.png"
-	}
-	method miraAbajo(){
-		image = "pj_abajo.png"
-	}
-	method miraDerecha(){
-		image = "pj_derecha.png"
-	}
-	method miraArriba(){
-		image = "pj_arriba.png"
+	method mirar(direccion) {
+		
+		const prefijo = 'pj_'
+		const sufijo = '.png'
+		
+		image = prefijo + direccion + sufijo	
 	}
 		
 
