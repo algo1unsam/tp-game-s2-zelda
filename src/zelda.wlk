@@ -16,8 +16,10 @@ object zelda {
 	}	
 	
 	method iniciar(){
-		mapa.iniciar()
-		prota.iniciar()
+		var b = new Batalla()
+		b.iniciar()
+//		mapa.iniciar()
+//		prota.iniciar()
 		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
 		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
 		entradaBosque.iniciar()		//test1 para ver puerta de bosque
@@ -140,7 +142,7 @@ object config {
 			//necesito una variable temporal que me almacene el visual del ataque, pq sino esta puede cambiar y romperme el codigo
 			var temp = prota.dir() 
 			//eliminamos el sprite del ataque
-			game.schedule(10,{game.removeVisual(temp)})
+			game.schedule(50,{game.removeVisual(temp)})
 		}
 }
 

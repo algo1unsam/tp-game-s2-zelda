@@ -66,7 +66,7 @@ object prota inherits Personaje(position = game.at(3,6)){
 }
 
 object ganon inherits Personaje(position = game.origin()){
-	var ataques = 20
+	var ataques = 10
 	const property zona_ataque = []
 	method atacar()
 	{
@@ -153,6 +153,8 @@ class Direccion{
 		game.getObjectsIn(self.position()).forEach{x=>x.recibirDanio(prota.poder())}
 	}
 	
+	method recibirDanio(_danio){}
+	
 }
 
 class Arriba inherits Direccion{
@@ -201,7 +203,7 @@ class CuboRojo{
 //			heroe.recibirDanio(danio)
 //		}
 		//si recibe contacto recibe mucho daño
-		game.onCollideDo(heroe, {x=>heroe.recibirDanio(1)})
+		game.onCollideDo(prota, {x=>prota.recibirDanio(1)})
 		return image
 	}
 	
