@@ -1,9 +1,12 @@
 import wollok.game.*
 import combate.*
+import personajes.*
+
 
 object zelda {
 
 	method configurar(){	
+		//config. mapa
 		game.width(20)
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
@@ -138,6 +141,7 @@ object config {
 			prota.irA(prota.position().down(1))
 			prota.miraAbajo()
 		}
+
 		
 		
 		method atacar(){
@@ -193,5 +197,6 @@ class Derecha inherits Direccion{
 	override method position(){
 		return prota.position().right(1)
 	}
+
 }
 
