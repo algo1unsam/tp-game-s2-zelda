@@ -1,9 +1,10 @@
 import wollok.game.*
 import zelda.*
+import utiles.*
 
 class Personaje{
 	var property position = new Position()
-	var property vida = 100
+	var property vida = 1000
 	var vivo = true
 	var property poder = 100
 	
@@ -45,8 +46,6 @@ object prota inherits Personaje(position = game.at(3,6)){
 		
 
 	
-
-
 	method encontrar(armas){
 		game.whenCollideDo(armas,inventario.add(armas))
 		game.removeVisual(armas)
@@ -59,8 +58,7 @@ object prota inherits Personaje(position = game.at(3,6)){
 	
 	method recibirDanio(danio){
 		vida-=danio
-		console.println(vida)
-		game.say(self, "auchis")
+		console.println("wollink:"+vida.toString())
 		self.checkMuerto()
 	}
 	
@@ -82,8 +80,9 @@ object prota inherits Personaje(position = game.at(3,6)){
 
 
 object ganon inherits Personaje(position = game.origin()){
-	var ataques = 10
+	var ataques = 5
 	const property zona_ataque = []
+	var fase_2 = true
 	method atacar()
 	{
 		//llevo en una lista las zonas del mapa ocupadas por sus ataques
@@ -93,7 +92,7 @@ object ganon inherits Personaje(position = game.origin()){
 		ataques.times{x =>self.crearCubo()}
 		
 		//despues de avisar la zona de peligro, esta hace daño
-		game.schedule(500, {=>self.detonarCubo()})
+		game.schedule(800, {=>self.detonarCubo()})
 		
 	}
 	
@@ -132,20 +131,27 @@ object ganon inherits Personaje(position = game.origin()){
 	
 	// se cura una vez nada mas, 50%
 	method curarse(){
+		vida+=vida*0.5
 	}
 	
 	//recibir daño me va  aservir para checkear la vida y fijarme que el cambio de fase
 	method recibirDanio(danio){
 		vida -= danio
+		console.println("ganon:"+vida.toString())
 		//en el cambio de fase se cura y se vuelve mas agresivo
-		if (vida <= 25){
-			self.curarse()
-			self.rugir()
-			game.removeTickEvent("ganon moverse")
-			game.onTick(5000,"ganon moverse rapido",{=>self.moverse()})
-			ataques = 20
+		if (vida <= 25 and fase_2){
+			self.cambioFase()
 		}
 		
+	}
+	
+	method cambioFase(){
+		self.curarse()
+		self.rugir()
+		game.removeTickEvent("ganon moverse")
+		game.onTick(5000,"ganon moverse rapido",{=>self.moverse()})
+		ataques = 20
+		fase_2=false
 	}
 	
 	
@@ -158,72 +164,4 @@ object npc inherits Personaje(position = game.origin()){
 
 
 
-//superclase que indica la direccion en la que miró el presonaje por ultima vez
-class Direccion{
-	method position(){
-		return prota.position()
-	}
-	
-	//hacemos daño si esta ganon
-	method atacar(poder){
-		game.getObjectsIn(self.position()).forEach{x=>x.recibirDanio(poder)}
-	}
-	
-	method recibirDanio(_danio){}
-	
-}
 
-class Arriba inherits Direccion{
-	var property image = "golpe_arriba.png"
-	override method position(){
-		return prota.position().up(1)
-	}
-}
-
-class Abajo inherits Direccion{
-	var property image = "golpe_abajo.png"
-	override method position(){
-		return prota.position().down(1)
-	}
-}
-
-class Izquierda inherits Direccion{
-	var property image = "golpe_izquierda.png"
-	override method position(){
-		return prota.position().left(1)
-	}
-}
-
-class Derecha inherits Direccion{
-	var property image = "golpe_derecha.png"
-	override method position(){
-		return prota.position().right(1)
-	}
-
-}
-
-
-
-//zonas rojas de peligro en el piso
-class CuboRojo{
-	var property position = 0
-	var danio = ganon.poder()
-	
-	var property image = "rojo.jpg" //aca va la imagen de un cubo rojo
-	
-	
-	//la imagen cambia y la zona esa ahora hace daño si tiene al heroe encima
-	method explotar(){
-		image="explosion.png" //aca va la imagen de una explosion/fuego
-//		if game.colliders(self).contains(heroe){
-//			heroe.recibirDanio(danio)
-//		}
-		//si recibe contacto recibe mucho daño
-		game.onCollideDo(prota, {x=>prota.recibirDanio(1)})
-		return image
-	}
-	
-	method recibirDanio(_danio){}
-	
-	
-}

@@ -2,7 +2,7 @@ import wollok.game.*
 import combate.*
 import personajes.*
 import objetos.*
-
+import utiles.*
 
 object zelda {
 
@@ -17,9 +17,9 @@ object zelda {
 	
 	method iniciar(){
 		var b = new Batalla()
-		b.iniciar()
-//		mapa.iniciar()
-//		prota.iniciar()
+//		b.iniciar() activar parainicir la batalla final
+		mapa.iniciar() //comentar para iniciar la batalla final
+		prota.iniciar() //comentar para iniciar la batalla final
 		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
 		game.onTick(150, "espadan.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
 		entradaBosque.iniciar()		//test1 para ver puerta de bosque
@@ -100,46 +100,6 @@ object salidaBosque {
 	}
 }
 
-object config {
-	
-	
-		method configurarTeclas() {
-		keyboard.left().onPressDo({ self.teclaIzquierda()})
-		keyboard.right().onPressDo({ self.teclaDerecha() })
-		keyboard.up().onPressDo({ self.teclaArriba() })
-		keyboard.down().onPressDo({ self.teclaAbajo() })
-		keyboard.s().onPressDo({self.atacar()})
-		}
-		
-		method teclaIzquierda(){
-			prota.dir(new Izquierda())
-			prota.mover(prota.position().left(1))
-			prota.mirar('izquierda')
-		}
-		method teclaDerecha(){
-			prota.dir(new Derecha())
-			prota.mover(prota.position().right(1))
-			prota.mirar('derecha')
-		}
-		method teclaArriba(){
-			prota.dir(new Arriba())
-			prota.mover(prota.position().up(1))
-			prota.mirar('arriba')
-		}
-		method teclaAbajo(){
-			prota.dir(new Abajo())
-			prota.mover(prota.position().down(1))
-			prota.mirar('abajo')
-		}
-
-		
-		
-		method atacar(){
-			//hacemos dañio la celda correspondiente
-			prota.atacar()
-			
-		}
-}
 
 
 
