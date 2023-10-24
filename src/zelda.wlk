@@ -93,8 +93,6 @@ object mapa {
 		estaEnMapa = false
 		prota.cambiarPosicion(1, 1)
 		}
-		
-
 }
 
 // Objetos Entradas y Salidas

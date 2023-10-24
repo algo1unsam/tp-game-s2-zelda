@@ -3,7 +3,6 @@ import personajes.*
 
 object config {
 	
-	
 		method configurarTeclas() {
 		keyboard.left().onPressDo({ self.teclaIzquierda()})
 		keyboard.right().onPressDo({ self.teclaDerecha() })
@@ -41,10 +40,6 @@ object config {
 			
 		}
 }
-
-
-
-
 
 
 //superclase que indica la direccion en la que miró el presonaje por ultima vez
@@ -104,7 +99,7 @@ class CuboRojo{
 	//la imagen cambia y la zona esa ahora hace daño si tiene al heroe encima
 	method explotar(){
 		image="explosion.png" //aca va la imagen de una explosion/fuego
-		if game.colliders(self).contains(prota){
+		if (game.colliders(self).contains(prota)){
 			prota.recibirDanio(danio)
 		}
 		//si recibe contacto recibe mucho daño
