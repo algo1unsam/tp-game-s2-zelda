@@ -6,5 +6,5 @@ program zelda {
 	zelda.configurar()
 	zelda.iniciar()
 	game.start()
-
+	
 }

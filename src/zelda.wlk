@@ -2,31 +2,60 @@ import wollok.game.*
 
 object zelda {
 
+	
+	
 	method configurar(){	
 		game.width(20)
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
-		config.configurarTeclas()
-		
+		config.configurarTeclas()	
 	}	
 	
-	method iniciar(){	//metodo que inicia cada objeto del juego
+	//metodo que inicia cada objeto del juego
+	method iniciar(){	
 		mapa.iniciar()
 		prota.iniciar()
-		game.onTick(150, "hechicera.png", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
-		game.onTick(150, "espada.png", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
-		game.onTick(150, "zelda.png", {if (entradaCastillo.comprueboSiProtaEstaEnEntrada()) mapa.entraCastillo()})
-		game.onTick(150, "hechicera.png", {if (entradaMontania.comprueboSiProtaEstaEnEntrada()) mapa.entraMontania()})
-		game.onTick(150, "espada.png", {if (salidaMontania.comprueboSiProtaEstaEnSalida()) mapa.saleMontania()})
-		game.onTick(150, "hechicera.png", {if (entradaAldea.comprueboSiProtaEstaEnEntrada()) mapa.entraAldea()})
-		game.onTick(150, "espada.png", {if (salidaAldea.comprueboSiProtaEstaEnSalida()) mapa.saleAldea()})
+		
+		game.onTick(150, "Entrada Aldea", {if (entradaAldea.comprueboSiProtaEstaEnEntrada()) mapa.entraAldea()})
+		game.onTick(150, "Salida Aldea", {if (salidaAldea.comprueboSiProtaEstaEnSalida()) mapa.saleAldea()})
+		game.onTick(150, "Entrada Bosque", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
+		game.onTick(150, "Salida Bosque", {if (salidaBosque.comprueboSiProtaEstaEnSalida()) mapa.saleBosque()})
+		game.onTick(150, "Entrada Montania", {if (entradaMontania.comprueboSiProtaEstaEnEntrada()) mapa.entraMontania()})
+		game.onTick(150, "Salida Montania", {if (salidaMontania.comprueboSiProtaEstaEnSalida()) mapa.saleMontania()})
+		game.onTick(150, "Entrada Castillo", {if (entradaCastillo.comprueboSiProtaEstaEnEntrada()) mapa.entraCastillo()})
 		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
-		//salidaBosque.iniciar()		//test2 para ver salida de bosque
-		entradaCastillo.iniciar()		//test3 para ver puerta de castillo
+		
+		game.whenCollideDo(prota, {pared => pared.colision()})
+		
 	}
 }
 
-object mapa {		//mapa principal
+class ParedIzq{
+	var property position
+	method image() = "hechicera.png"
+	
+	method iniciar(){
+		game.addVisual(self)	
+	}
+	
+	
+	method colision(){
+		prota.irA(prota.position().right(1))
+	}
+}
+
+object paredes{
+	
+	const paredIzq1 = new ParedIzq(position = game.at(1,1))
+	const paredIzq2 = new ParedIzq(position = game.at(1,2))
+	const paredIzq3 = new ParedIzq(position = game.at(1,3))
+	const paredIzq4 = new ParedIzq(position = game.at(1,4))
+	const paredIzq5 = new ParedIzq(position = game.at(1,5))
+
+}
+
+// Objeto Mapa Principal
+object mapa {
 	var property position = game.origin()
 	var property estaEnAldea = true
 	var property estaEnMapa = false
@@ -37,162 +66,145 @@ object mapa {		//mapa principal
 	const sufijo = '.png'
 	
 	method image(){
-		
 		return lugar + sufijo
 	} 
 	
+	method iniciar(){
+		game.addVisual(self)
+	}
+	// Métodos de entradas y salidas del mapa
 	method entraAldea(){
 		lugar = 'aldea'
 		estaEnAldea = true
 		estaEnMapa = false
 		prota.cambiarPosicion(19, 6)
-		//entradaBosque.estaDentro(true)
 		}
-		
 	method saleAldea(){
 		lugar = 'mapa'
 		estaEnAldea = false
 		estaEnMapa = true
-		prota.cambiarPosicion(3,6)
-		//entradaBosque.estaDentro(false)
+		prota.cambiarPosicion(4,6)
 	}
-		
 	method entraBosque(){
 		lugar = 'bosque'
 		estaEnBosque = true
+		estaEnMapa = false
 		prota.cambiarPosicion(9, 1)
-		//entradaBosque.estaDentro(true)
 		}
-	
 	method saleBosque(){
 		lugar = 'mapa'
 		estaEnBosque = false
+		estaEnMapa = true
 		prota.cambiarPosicion(9,7)
-		//entradaBosque.estaDentro(false)
 	}
-		
 	method entraMontania(){
 		lugar = 'montania'
 		estaEnMontania = true
-		prota.cambiarPosicion(11, 12)
-		//entradaBosque.estaDentro(true)
+		estaEnMapa = false
+		prota.cambiarPosicion(11, 11)
 		}
-	
 	method saleMontania(){
 		lugar = 'mapa'
 		estaEnMontania = false
-		prota.cambiarPosicion(11,6)
-		//entradaBosque.estaDentro(false)
+		estaEnMapa = true
+		prota.cambiarPosicion(11,5)
 	}
-	
 		method entraCastillo(){
 		lugar = 'castillo'
 		estaEnCastillo = true
+		estaEnMapa = false
 		prota.cambiarPosicion(1, 1)
-		//entradaBosque.estaDentro(true)
 		}
-		
-	method iniciar(){
-		game.addVisual(self)
-	}
 }
 
+// Objetos Entradas y Salidas
 object entradaAldea {						
-	var property position = game.at(2,6)
-	//var property estaDentro = false
+	var property position = game.at(3,6)
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
-		//game.addVisual(self)		//visual para Test1 ver donde esta la puerta
+		//game.addVisual(self)		//visual para Test
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
 		return (prota.position() == self.position()) and not mapa.estaEnAldea() and mapa.estaEnMapa()
 	}
 }
-
 object salidaAldea {
 	var property position = game.at(20,6)
 	method image() = "espada.png"		
 	
 	method iniciar(){
-		//game.addVisual(self) 		//visual para Test2 chequear donde esta la salida
+		//game.addVisual(self) 	
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
 		return (prota.position() == self.position()) and mapa.estaEnAldea() and not mapa.estaEnMapa()
 	}
 }
-
 object entradaBosque {						
 	var property position = game.at(9,8)
-	//var property estaDentro = false
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
-		//game.addVisual(self)		//visual para Test1 ver donde esta la puerta
+		//game.addVisual(self)		
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position()) and not mapa.estaEnBosque()
+		return (prota.position() == self.position()) and not mapa.estaEnBosque() and mapa.estaEnMapa()
 	}
 }
-
 object salidaBosque {
 	var property position = game.at(9,0)
 	method image() = "espada.png"		
 	
 	method iniciar(){
-		//game.addVisual(self) 		//visual para Test2 chequear donde esta la salida
+		//game.addVisual(self) 
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) and mapa.estaEnBosque()
+		return (prota.position() == self.position()) and mapa.estaEnBosque() and not mapa.estaEnMapa()
 	}
 }
-
 object entradaMontania {						
 	var property position = game.at(11,4)
-	//var property estaDentro = false
 	method image() = "hechicera.png"		
 	
 	method iniciar(){
-		//game.addVisual(self)		//visual para Test1 ver donde esta la puerta
+		//game.addVisual(self)
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position()) and not mapa.estaEnMontania()
+		return (prota.position() == self.position()) and not mapa.estaEnMontania() and mapa.estaEnMapa()
 	}
 }
-
 object salidaMontania {
 	var property position = game.at(11,12)
 	method image() = "espada.png"		
 	
 	method iniciar(){
-		//game.addVisual(self) 		//visual para Test2 chequear donde esta la salida
+		//game.addVisual(self)
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) and mapa.estaEnMontania()
+		return (prota.position() == self.position()) and mapa.estaEnMontania() and not mapa.estaEnMapa()
 	}
 }
-
 object entradaCastillo {						
 	var property position = game.at(15,8)
-	//var property estaDentro = false
 	method image() = "zelda.png"		
 	
 	method iniciar(){
-		game.addVisual(self)		//visual para Test1 ver donde esta la puerta
+		//game.addVisual(self)
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position()) and not mapa.estaEnCastillo()
+		return (prota.position() == self.position()) and not mapa.estaEnCastillo() and mapa.estaEnMapa()
 	}
 }
 
-object prota {		//objeto de protagonista para probar cambios de mapa
+// Objeto Protagonista
+object prota {		
 	var property position = game.at(3,6)
 	var property image =  "pj_abajo.png"
 	
