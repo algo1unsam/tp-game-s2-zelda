@@ -92,6 +92,8 @@ object mapa {
 		estaEnCastillo = true
 		estaEnMapa = false
 		prota.cambiarPosicion(1, 1)
+		var b = new Batalla()
+		b.iniciar()
 		}
 }
 
