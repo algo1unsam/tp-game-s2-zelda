@@ -2,9 +2,7 @@ import wollok.game.*
 import zelda.*
 
 program zelda {
-	
 	zelda.configurar()
 	zelda.iniciar()
 	game.start()
-
 }

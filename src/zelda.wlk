@@ -42,13 +42,9 @@ object mapa {
 	var property lugar = 'aldea'
 	const sufijo = '.png'
 	
-	method image(){
-		return lugar + sufijo
-	} 
+	method image(){return lugar + sufijo} 
 	
-	method iniciar(){
-		game.addVisual(self)
-	}
+	method iniciar(){game.addVisual(self)}
 	
 // Métodos de entradas y salidas del mapa
 	method entraAldea(){
@@ -167,8 +163,7 @@ object salidaMontania {
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) and mapa.estaEnMontania() and not mapa.estaEnMapa()
-	}
+		return (prota.position() == self.position()) and mapa.estaEnMontania() and not mapa.estaEnMapa()}
 }
 object entradaCastillo {						
 	var property position = game.at(15,8)
