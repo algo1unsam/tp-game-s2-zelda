@@ -4,9 +4,9 @@ import utiles.*
 
 class Personaje{
 	var property position = new Position()
-	var property vida = 1000
+	var property vida = 100
 	var vivo = true
-	var property poder = 100
+	var property poder = 10
 	
 	method iniciar(){ game.addVisual(self) }
 	
@@ -80,7 +80,7 @@ object prota inherits Personaje(position = game.at(3,6)){
 
 
 object ganon inherits Personaje(position = game.origin()){
-	var ataques = 5
+	var ataques = 10
 	const property zona_ataque = []
 	var fase_2 = true
 	method atacar()
@@ -124,9 +124,9 @@ object ganon inherits Personaje(position = game.origin()){
 		position=game.at(0.randomUpTo(game.width()).truncate(0), 0.randomUpTo(game.height()).truncate(0))
 	}
 	
-	//a mitad de vida va a asubir su ataque en un 25%
+	//a mitad de vida va a asubir su ataque en un 30%
 	method rugir(){
-		poder += poder *0.25
+		poder += poder *0.30
 	}
 	
 	// se cura una vez nada mas, 50%
@@ -138,8 +138,9 @@ object ganon inherits Personaje(position = game.origin()){
 	method recibirDanio(danio){
 		vida -= danio
 		console.println("ganon:"+vida.toString())
+		self.moverse()
 		//en el cambio de fase se cura y se vuelve mas agresivo
-		if (vida <= 25 and fase_2){
+		if (vida <= 45 and fase_2){
 			self.cambioFase()
 		}
 		
@@ -149,8 +150,8 @@ object ganon inherits Personaje(position = game.origin()){
 		self.curarse()
 		self.rugir()
 		game.removeTickEvent("ganon moverse")
-		game.onTick(5000,"ganon moverse rapido",{=>self.moverse()})
-		ataques = 20
+		game.onTick(3000,"ganon moverse rapido",{=>self.moverse()})
+		ataques = 25
 		fase_2=false
 	}
 	

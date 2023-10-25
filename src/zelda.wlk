@@ -179,7 +179,7 @@ object entradaCastillo {
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position()) and not mapa.estaEnCastillo() and mapa.estaEnMapa()
+		return (prota.position() == self.position()) and not mapa.estaEnCastillo() and mapa.estaEnMapa()//////SUPERCLASE de entrada y de salida (fabri)
 	}
 }
 

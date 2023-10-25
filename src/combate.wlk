@@ -20,7 +20,7 @@ class Batalla{
 		
 		
 		//activo onticks
-		game.onTick(8000,"ganon moverse",{=>ganon.moverse()})
+		game.onTick(7000,"ganon moverse",{=>ganon.moverse()})
 		game.onTick(1000,"ganon atacar",{=>ganon.atacar()})		
 	}
 }
