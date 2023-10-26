@@ -12,14 +12,17 @@ object zelda {
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
 		config.configurarTeclas()
+
+		
 	}	
 	
 // 	Metodo que inicia cada objeto del juego
 	method iniciar(){
 		var b = new Batalla()
-//		b.iniciar() activar parainicir la batalla final
 		mapa.iniciar() //comentar para iniciar la batalla final
 		prota.iniciar() //comentar para iniciar la batalla final
+		self.bordes()
+		game.whenCollideDo(prota, {objeto=>objeto.colision()})
 		game.onTick(150, "Entrada Aldea", {if (entradaAldea.comprueboSiProtaEstaEnEntrada()) mapa.entraAldea()})
 		game.onTick(150, "Salida Aldea", {if (salidaAldea.comprueboSiProtaEstaEnSalida()) mapa.saleAldea()})
 		game.onTick(150, "Entrada Bosque", {if (entradaBosque.comprueboSiProtaEstaEnEntrada()) mapa.entraBosque()})
@@ -28,6 +31,22 @@ object zelda {
 		game.onTick(150, "Salida Montania", {if (salidaMontania.comprueboSiProtaEstaEnSalida()) mapa.saleMontania()})
 		game.onTick(150, "Entrada Castillo", {if (entradaCastillo.comprueboSiProtaEstaEnEntrada()) mapa.entraCastillo()})
 		//entradaBosque.iniciar()		//test1 para ver puerta de bosque
+	}
+	
+	method bordes(){
+		
+		21.times{l => var pared = new ParedAba(position=game.at(l-1,-1))
+			game.addVisual(pared)
+		}
+		21.times{l => var pared = new ParedArr(position=game.at(l-1,13))
+			game.addVisual(pared)
+		}
+		12.times{l => var pared = new ParedIzq(position=game.at(-1,l))
+			game.addVisual(pared)
+		}
+		12.times{l => var pared = new ParedDer(position=game.at(20,l))
+			game.addVisual(pared)
+		}
 	}
 }
 
@@ -51,7 +70,7 @@ object mapa {
 		lugar = 'aldea'
 		estaEnAldea = true
 		estaEnMapa = false
-		prota.cambiarPosicion(19, 6)
+		prota.cambiarPosicion(18, 6)
 		}
 	method saleAldea(){
 		lugar = 'mapa'
@@ -91,6 +110,9 @@ object mapa {
 		var b = new Batalla()
 		b.iniciar()
 		}
+		
+		//metodo vacio para que no me de error
+		method colision(){}
 }
 
 // Objetos Entradas y Salidas
@@ -107,7 +129,7 @@ object entradaAldea {
 	}
 }
 object salidaAldea {
-	var property position = game.at(20,6)
+	var property position = game.at(19,6)
 	method image() = "espada.png"		
 	
 	method iniciar(){

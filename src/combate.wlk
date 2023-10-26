@@ -13,6 +13,8 @@ class Batalla{
 		_heroe.iniciar()
 		enemigo.iniciar()
 		config.configurarTeclas()
+		zelda.bordes()
+		game.whenCollideDo(prota, {objeto=>objeto.colision()})
 		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))

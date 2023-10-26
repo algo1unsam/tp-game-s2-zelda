@@ -86,6 +86,7 @@ class CuboRojo{
 	}
 	//metodo vacio por si el jugador le pega al cuboRojo o al fuego, no me explote el juego
 	method recibirDanio(_danio){}
+	method colision(){}
 }
 
 //Objeto que me termian el juego cuando uno de los personajes se muere
@@ -100,3 +101,37 @@ object muerte{
 		game.addVisual(self)
 	}
 }
+
+
+//Colisiones
+
+class ParedInvisible{
+	var property position
+	
+	method colision()
+	
+	//metodo vacio
+	method recibirDanio(algo){}
+}
+
+class ParedIzq inherits ParedInvisible{
+	
+	override method colision(){prota.position(prota.position().right(1))}
+}
+
+class ParedDer inherits ParedInvisible{
+	
+	override method colision(){prota.position(prota.position().left(1))}
+}
+
+class ParedArr inherits ParedInvisible{
+	
+	override method colision(){prota.position(prota.position().down(1))}
+}
+
+class ParedAba inherits ParedInvisible{
+	
+	override method colision(){prota.position(prota.position().up(1))}
+}
+
+

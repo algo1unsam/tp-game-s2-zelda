@@ -137,10 +137,16 @@ object ganon inherits Personaje(position = game.origin()){
 		super()
 		muerte.morir("bromita2.jpg")//Pasar la iamgen de "Ganaste!"
 	}
+	
+	method colision(){
+		prota.recibirDanio(poder)
+	}
 }
 
 object npc inherits Personaje(position = game.origin()){
 	method image() = ""
+	
+	method colision(){}
 }
 
 
