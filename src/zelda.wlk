@@ -35,16 +35,16 @@ object zelda {
 	
 	method bordes(){
 		
-		21.times{l => var pared = new ParedAba(position=game.at(l-1,-1))
+		21.times{l => var pared = new ParedInvisible(position=game.at(l-1,-1))
 			game.addVisual(pared)
 		}
-		21.times{l => var pared = new ParedArr(position=game.at(l-1,13))
+		21.times{l => var pared = new ParedInvisible(position=game.at(l-1,13))
 			game.addVisual(pared)
 		}
-		12.times{l => var pared = new ParedIzq(position=game.at(-1,l))
+		12.times{l => var pared = new ParedInvisible(position=game.at(-1,l))
 			game.addVisual(pared)
 		}
-		12.times{l => var pared = new ParedDer(position=game.at(20,l))
+		12.times{l => var pared = new ParedInvisible(position=game.at(20,l))
 			game.addVisual(pared)
 		}
 	}
@@ -71,6 +71,7 @@ object mapa {
 		estaEnAldea = true
 		estaEnMapa = false
 		prota.cambiarPosicion(18, 6)
+		distribucion.aldea()
 		}
 	method saleAldea(){
 		lugar = 'mapa'

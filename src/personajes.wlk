@@ -21,7 +21,7 @@ class Personaje{
 }
 
 //El personaje que va a mover el jugador
-object prota inherits Personaje(position = game.at(3,6)){
+object prota inherits Personaje(position = game.at(6,6)){
 	var property inventario = #{}
 	var property image =  "pj_abajo.png"
 	var property dir = new Derecha()
