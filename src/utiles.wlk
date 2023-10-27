@@ -119,21 +119,45 @@ class ParedInvisible{
 
 
 object distribucion{
+	var matriz_activa = []
 	method aldea(){
 		const matriz=[
 			[0,11], [1,11], [2,11], [3,11], [4,11], [5,11], [6,11], [7,11], [8,11], [9,11], [10,11], [11,11], [12,11], [13,11], [14,11], [15,11], [16,11], [17,11], [18,10], [19,10],
 			[0,5], [1,5], [0,2], [0,3], [1,0], [1,1], [1,8], [2,8], [2,9], [3,9],[1,9], [5,8],[6,8],[5,9],[6,9],[11,8],[12,8],[14,8],[15,8],[11,9],[12,9],[14,9],[15,9]
 		]
-		
+		self.limpiarMapa()
 		self.agregarPared(matriz)
 	}
-	method bosque(){}
-	method mapa(){}
+	
+	method bosque(){
+		const matriz=[
+			[6,0], [6,1],[6,2],[6,3], [6,4], [6,5], [6,6], [6,7], [7,8], [8,8], [9,8], [10,8], [11,8], [12,8],
+			[12,0], [12,1],[12,2],[12,3], [12,4], [13,5], [13,6], [13,7]    
+		]
+		
+		self.limpiarMapa()
+		self.agregarPared(matriz)
+	}
+	method mapa(){
+		const matriz = [
+			[4,5], [5,5], [6,5], [7,5], [8,5], [9,5], [10,5], [12,5], [13,5], [14,5], [15,5],[16,6],
+			[4,7], [5,7], [6,7], [7,7], [8,7], [10,7], [11,7], [12,7], [13,7], [14,7] 
+		]
+		self.limpiarMapa()
+		self.agregarPared(matriz)
+		
+	}
 	
 	method agregarPared(matriz){
 		matriz.forEach{l=>
 			var pared = new ParedInvisible(position=game.at(l.get(0),l.get(1)))
 			game.addVisual(pared)
+			matriz_activa.add(pared)
 		}
+	}
+	
+	method limpiarMapa(){
+		matriz_activa.forEach{l=>game.removeVisual(l)}
+		matriz_activa.clear()
 	}
 }

@@ -5,15 +5,12 @@ import objetos.*
 import utiles.*
 
 object zelda {
-
 	method configurar(){	
 		//config. mapa
 		game.width(20)
 		game.height(13)
 		game.title("Zelda: Ocarina of Wollok")
 		config.configurarTeclas()
-
-		
 	}	
 	
 // 	Metodo que inicia cada objeto del juego
@@ -63,7 +60,10 @@ object mapa {
 	
 	method image(){return lugar + sufijo} 
 	
-	method iniciar(){game.addVisual(self)}
+	method iniciar(){
+		game.addVisual(self)
+		distribucion.aldea()
+	}
 	
 // Métodos de entradas y salidas del mapa
 	method entraAldea(){
@@ -78,18 +78,21 @@ object mapa {
 		estaEnAldea = false
 		estaEnMapa = true
 		prota.cambiarPosicion(4,6)
+		distribucion.mapa()
 	}
 	method entraBosque(){
 		lugar = 'bosque'
 		estaEnBosque = true
 		estaEnMapa = false
 		prota.cambiarPosicion(9, 1)
+		distribucion.bosque()
 		}
 	method saleBosque(){
 		lugar = 'mapa'
 		estaEnBosque = false
 		estaEnMapa = true
 		prota.cambiarPosicion(9,7)
+		distribucion.mapa()
 	}
 	method entraMontania(){
 		lugar = 'montania'
@@ -102,10 +105,10 @@ object mapa {
 		estaEnMontania = false
 		estaEnMapa = true
 		prota.cambiarPosicion(11,5)
+		distribucion.mapa()
 	}
 		method entraCastillo(){
 		lugar = 'castillo'
-		estaEnCastillo = true
 		estaEnMapa = false
 		prota.cambiarPosicion(1, 1)
 		var b = new Batalla()
