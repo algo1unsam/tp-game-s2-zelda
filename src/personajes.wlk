@@ -82,7 +82,7 @@ object ganon inherits Personaje(position = game.origin()){
 		game.schedule(800, {=>self.detonarCubo()})
 	}
 	
-	method image() = "jefe_1.png"	
+	method image() = "ganon.png"	
 	
 	method crearCubo(){
 		//le asigno una posicion aleatoria
