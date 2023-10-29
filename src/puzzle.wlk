@@ -10,6 +10,7 @@ object puzzle{
   		game.addVisual(boton4)
  		game.addVisual(cofre)
 		game.addVisual(prota)
+		
 
 		game.onTick(150, "boton1", { if (boton1.estaApretado()) boton1.apretarBoton()})
 		game.onTick(150, "boton2", { if (boton2.estaApretado()) boton2.apretarBoton()})
@@ -61,6 +62,7 @@ class Botones{
 			game.removeTickEvent("boton2")
 			game.removeTickEvent("boton3")
 			game.removeTickEvent("boton4")
+			escudo.aparecer()
 		}
 		return self == cofre.orden().get(cofre.apretados().size()-1)
 	} 	
@@ -91,6 +93,24 @@ object cofre{
 	
 }
 
+object escudo{
+	const property position = game.at(9,9)
+	method image() {
+		return "escudo.png"
+	}
+	method comprueboPosicionWollink(){
+		return self.position() == prota.position()
+	}
+	method aparecer(){
+		game.addVisual(self)
+		game.onTick(150, "escudo", { if (escudo.comprueboPosicionWollink()) escudo.agarrarEscudo()})
+	}
+	method agarrarEscudo(){
+		game.removeVisual(self)
+		game.removeTickEvent("escudo")
+		// Llamar acá al método para que Wollink tenga el escudo
+	}
+}
 
 object mapaPuzzle {
 //eliminar botones y cofre
