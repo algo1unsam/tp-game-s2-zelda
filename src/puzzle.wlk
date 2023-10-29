@@ -27,6 +27,7 @@ object puzzle{
 class Botones{
 	var property position
 	var apretado = false
+	method colision(){}
 	method estaApretado(){
 		return self.position() == prota.position()
 	}
@@ -75,6 +76,7 @@ object cofre{
 //Lista a la que se agregan los botones que voy apretando
 	const property apretados = []
 	var abierto = false
+	method colision(){}
 	method image(){
 		return if (self.orden() == self.apretados())
 		{
@@ -95,6 +97,7 @@ object cofre{
 
 object escudo{
 	const property position = game.at(9,9)
+	method colision(){}
 	method image() {
 		return "escudo.png"
 	}

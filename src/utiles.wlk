@@ -147,6 +147,11 @@ object distribucion{
 		self.agregarPared(matriz)
 		
 	}
+	method montania(){
+		const matriz = []
+		self.limpiarMapa()
+		self.agregarPared(matriz)
+	}
 	
 	method agregarPared(matriz){
 		matriz.forEach{l=>

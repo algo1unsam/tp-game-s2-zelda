@@ -107,6 +107,7 @@ object mapa {
 		estaEnMontania = true
 		estaEnMapa = false
 		prota.cambiarPosicion(11, 11)
+		distribucion.montania()
 		}
 	method saleMontania(){
 		if (puzzleResuelto == true){
@@ -115,11 +116,12 @@ object mapa {
 		estaEnMapa = true
 		prota.cambiarPosicion(11,5)
 		mapaPuzzle.eliminarVisualesMontania()
+		distribucion.mapa()
 		}
 		else{
 			game.say(prota, "Debería abrir el cofre primero")
 		}
-		distribucion.mapa()
+		
 	}
 		method entraCastillo(){
 		lugar = 'castillo'
