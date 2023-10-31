@@ -1,10 +1,11 @@
 import wollok.game.*
 import zelda.*
-
+import menu.*
 program zelda {
 	
 	zelda.configurar()
 	zelda.iniciar()
+	menu.iniciar()
 	game.start()
 
 }
