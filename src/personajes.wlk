@@ -143,9 +143,21 @@ object ganon inherits Personaje(position = game.origin()){
 	}
 }
 
-object npc inherits Personaje(position = game.origin()){
-	method image() = ""
+object princesa inherits Personaje(position = game.at(17,7)){
+	method image() = "zelda_2.png"
 	
+	//evento de aparcion de la princesa (me da la espada de madera)
+	method evento(){
+		game.addVisual(self)
+		game.schedule(1000,{game.say(self,"Wollink! estoy atrapada en el castillo!")})
+		game.schedule(2000,{game.say(self,"Necesito que me salves!")})
+		game.schedule(3000,{game.say(self,"Vas a necesitar equipo")})
+		game.schedule(4000,{game.say(self,"Tomá esta espada...")})
+		game.schedule(50000,{game.say(self,"Y vení a salvarme!")})
+		game.schedule(10000,{self.remover()})		
+	}
+	
+	method remover(){game.removeVisual(self)}
 	method colision(){}
 }
 
