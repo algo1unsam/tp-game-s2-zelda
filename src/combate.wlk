@@ -10,6 +10,7 @@ class Batalla{
 	
 	method iniciar(){
 		game.clear()
+		game.addVisual(mapa)
 		_heroe.iniciar()
 		enemigo.iniciar()
 		config.configurarTeclas()
