@@ -10,6 +10,11 @@ describe "zelda"{
 	const espada = new Espada(position=game.origin())
 	const batalla = new Batalla()
 	
+	method initialize(){
+		batalla.iniciar()
+	}
+	
+	
 	test "1. Poder Wollink"{
 		assert.equals(5, prota.poder())
 		//hago aprecer y equipo la espada de  madera
@@ -24,15 +29,32 @@ describe "zelda"{
 		//compruebo que el poder se sume bien
 		assert.equals(10,espadaMaestra.poder())
 		assert.equals(25,prota.poder())
-		assert.equals(#{espadaMaestra,espada}, prota.inventario())
+		
 	}
 	
 	test "2. Cambio de fase de Ganon"{
-		batalla.iniciar()
 		assert.equals(5,ganon.poder())
-		//le bajo la vida a ganon para probar el cambio de fase
-		ganon.recibirDanio(75)
-		assert.equals(6.5,ganon.poder())
-		assert.equals(72,ganon.vida())
+		//pruebao el cambio de fase
+		ganon.cambioFase()
+		assert.equals(6.5,ganon.poder()) //pruebo el rugir
+		assert.equals(192,ganon.vida()) //pruebo el curarse
+	}
+	
+	test "3. Vida y danio personajes"{
+		assert.equals(120, ganon.vida())
+		ganon.recibirDanio(10)
+		assert.equals(110,ganon.vida())
+		
+		assert.equals(20, prota.vida())
+		prota.recibirDanio(10)
+		assert.equals(10,prota.vida())
+	}
+	
+	test "4. Inventario"{
+		espada. aparecer()
+		espada.recogerEspada()
+		espadaMaestra.aparecer()
+		espadaMaestra.recogerEspada()
+		assert.equals(#{espadaMaestra,espada}, prota.inventario())
 	}
 }
