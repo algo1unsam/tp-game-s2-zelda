@@ -27,7 +27,7 @@ describe "zelda"{
 		assert.equals(#{espadaMaestra,espada}, prota.inventario())
 	}
 	
-	test "2. Poder Ganon"{
+	test "2. Cambio de fase de Ganon"{
 		batalla.iniciar()
 		assert.equals(5,ganon.poder())
 		//le bajo la vida a ganon para probar el cambio de fase
