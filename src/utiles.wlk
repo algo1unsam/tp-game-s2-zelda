@@ -1,5 +1,6 @@
 import wollok.game.*
 import personajes.*
+import objetos.*
 
 //Configuracion del teclado y del ataque en direccion que mira el personaje
 object config {
@@ -50,25 +51,30 @@ class Direccion{
 	method vieja_posicion(){return vieja_position}
 	//para evitar problemas si el personaje ataca muy rapido y se pisan las visuals
 	method recibirDanio(_danio){}
+	
+	method golpes(){
+		if(prota.inventario().contains(espadaMaestra)){return ["golpe_arriba_mejorado.png","golpe_abajo_mejorado.png","golpe_izquierda_mejorado.png","golpe_derecha_mejorado.png"]}
+		return ["golpe_arriba.png","golpe_abajo.png","golpe_izquierda.png","golpe_derecha.png"]
+	}
 }
 
 class Arriba inherits Direccion{
-	var property image = "golpe_arriba.png"
+	var property image = self.golpes().get(0)
 	override method position(){return prota.position().up(1)}
 }
 
 class Abajo inherits Direccion{
-	var property image = "golpe_abajo.png"
+	var property image = self.golpes().get(1)
 	override method position(){return prota.position().down(1)}
 }
 
 class Izquierda inherits Direccion{
-	var property image = "golpe_izquierda.png"
+	var property image = self.golpes().get(2)
 	override method position(){return prota.position().left(1)}
 }
 
 class Derecha inherits Direccion{
-	var property image = "golpe_derecha.png"
+	var property image = self.golpes().get(3)
 	override method position(){return prota.position().right(1)}
 }
 
@@ -132,7 +138,8 @@ object distribucion{
 	method bosque(){
 		const matriz=[
 			[6,0], [6,1],[6,2],[6,3], [6,4], [6,5], [6,6], [6,7], [7,8], [8,8], [9,8], [10,8], [11,8], [12,8],
-			[12,0], [12,1],[12,2],[12,3], [12,4], [13,5], [13,6], [13,7]    
+			[12,0], [12,1],[12,2],[12,3], [12,4], [13,5], [13,6], [13,7],
+			[7,3], [7,4], [8,2], [8,3], [8,6], [10,2], [10,6], [10,7], [11,4], [9,2], [9,5] //para el laberinto invisible  
 		]
 		
 		self.limpiarMapa()
@@ -141,7 +148,8 @@ object distribucion{
 	method mapa(){
 		const matriz = [
 			[4,5], [5,5], [6,5], [7,5], [8,5], [9,5], [10,5], [12,5], [13,5], [14,5], [15,5],[16,6],
-			[4,7], [5,7], [6,7], [7,7], [8,7], [10,7], [11,7], [12,7], [13,7], [14,7] 
+			[4,7], [5,7], [6,7], [7,7], [8,7], [10,7], [11,7], [12,7], [13,7], [14,7]
+			
 		]
 		self.limpiarMapa()
 		self.agregarPared(matriz)

@@ -1,12 +1,13 @@
 import wollok.game.*
 import zelda.*
 import utiles.*
+import objetos.*
 
 class Personaje{
 	var property position = new Position()
-	var property vida = 100
+	var property vida 
 	var vivo = true
-	var property poder = 100
+	var property poder 
 	
 	//inicia el personaje en el juego
 	method iniciar(){ game.addVisual(self) }
@@ -21,7 +22,7 @@ class Personaje{
 }
 
 //El personaje que va a mover el jugador
-object prota inherits Personaje(position = game.at(6,6)){
+object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 	var property inventario = #{}
 	var property image =  "pj_abajo.png"
 	var property dir = new Derecha()
@@ -35,13 +36,7 @@ object prota inherits Personaje(position = game.at(6,6)){
 		const sufijo = '.png'
 		image = prefijo + direccion + sufijo	
 	}
-		
-	//agarra el arma del piso y la suma a su inventario
-	method encontrar(armas){
-		game.whenCollideDo(armas,inventario.add(armas))
-		game.removeVisual(armas)
-	}
-	
+			
 	method cambiarPosicion(x, y){position = game.at(x, y)}
 	
 	method recibirDanio(danio){
@@ -67,7 +62,7 @@ object prota inherits Personaje(position = game.at(6,6)){
 }
 
 //enemigo del combate final
-object ganon inherits Personaje(position = game.origin()){
+object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	var ataques = 10
 	const property zona_ataque = [] //lsita con las posiciones donde va a atacar
 	var fase_2 = true
@@ -110,7 +105,7 @@ object ganon inherits Personaje(position = game.origin()){
 	method rugir(){poder += poder *0.30}
 	
 	// se cura una vez nada mas, 50%
-	method curarse(){vida+=vida*0.5}
+	method curarse(){vida+=vida*0.6}
 	
 	//recibir daño me va  aservir para checkear la vida y fijarme que el cambio de fase
 	method recibirDanio(danio){
@@ -119,7 +114,7 @@ object ganon inherits Personaje(position = game.origin()){
 		self.moverse()
 		self.checkMuerto()
 		//en el cambio de fase se cura y se vuelve mas agresivo
-		if (vida <= 45 and fase_2){self.cambioFase()}
+		if (vida <= 50 and fase_2){self.cambioFase()}
 	}
 	
 	//metodo que se activa en el cambio de fase
@@ -140,13 +135,33 @@ object ganon inherits Personaje(position = game.origin()){
 	
 	method colision(){
 		prota.recibirDanio(poder)
+		self.moverse()
 	}
 }
 
-object npc inherits Personaje(position = game.origin()){
-	method image() = ""
+//la princesa aparece al principio pidiendo que la rescatemos
+object princesa inherits Personaje(position = game.at(17,7), vida=1, poder=1){
+	method image() = "zelda_2.png"
 	
+	//evento de aparcion de la princesa (me da la espada de madera)
+	method evento(){
+		game.addVisual(self)
+		game.schedule(1000,{game.say(self,"Wollink! estoy atrapada en el castillo!")})
+		game.schedule(2000,{game.say(self,"Necesito que me salves!")})
+		game.schedule(3000,{game.say(self,"Vas a necesitar equipo")})
+		game.schedule(4000,{game.say(self,"Tomá esta espada...")})
+		game.schedule(50000,{game.say(self,"Y vení a salvarme!")})
+		game.schedule(10000,{self.remover()})		
+	}
+	
+	//la princesa desaparece pero queda la espada
+	method remover(){
+		game.removeVisual(self)
+		var espada = (new Espada(position=self.position()))
+		espada.aparecer()
+	}
 	method colision(){}
+	method recibirDanio(danio){}
 }
 
 

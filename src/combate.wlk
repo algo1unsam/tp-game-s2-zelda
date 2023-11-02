@@ -10,6 +10,7 @@ class Batalla{
 	
 	method iniciar(){
 		game.clear()
+		game.addVisual(mapa)
 		_heroe.iniciar()
 		enemigo.iniciar()
 		config.configurarTeclas()
@@ -26,19 +27,3 @@ class Batalla{
 		game.onTick(1000,"ganon atacar",{=>ganon.atacar()})		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

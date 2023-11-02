@@ -1,4 +1,5 @@
 import wollok.game.*
+import personajes.*
 object menu{
 	method iniciar(){
 		game.onTick(400, "animacion", {menuAnimacion.pasarFrame()})
@@ -14,6 +15,7 @@ object menuAnimacion{
 	method enter(){
 		game.removeTickEvent("animacion")
 		game.removeVisual(self)
+		princesa.evento()
 	}
 	
 }

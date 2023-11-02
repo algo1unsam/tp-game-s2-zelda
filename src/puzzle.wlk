@@ -1,6 +1,7 @@
 import wollok.game.*
 import zelda.*
 import personajes.*
+import objetos.*
 object puzzle{
 	method iniciar(){
 		game.removeVisual(prota)
@@ -95,25 +96,7 @@ object cofre{
 	
 }
 
-object escudo{
-	const property position = game.at(9,9)
-	method colision(){}
-	method image() {
-		return "escudo.png"
-	}
-	method comprueboPosicionWollink(){
-		return self.position() == prota.position()
-	}
-	method aparecer(){
-		game.addVisual(self)
-		game.onTick(150, "escudo", { if (escudo.comprueboPosicionWollink()) escudo.agarrarEscudo()})
-	}
-	method agarrarEscudo(){
-		game.removeVisual(self)
-		game.removeTickEvent("escudo")
-		// Llamar acá al método para que Wollink tenga el escudo
-	}
-}
+
 
 object mapaPuzzle {
 //eliminar botones y cofre
