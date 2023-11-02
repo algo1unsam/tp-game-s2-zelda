@@ -105,7 +105,7 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	method rugir(){poder += poder *0.30}
 	
 	// se cura una vez nada mas, 50%
-	method curarse(){vida+=vida*0.5}
+	method curarse(){vida+=vida*0.6}
 	
 	//recibir daño me va  aservir para checkear la vida y fijarme que el cambio de fase
 	method recibirDanio(danio){
@@ -114,7 +114,7 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 		self.moverse()
 		self.checkMuerto()
 		//en el cambio de fase se cura y se vuelve mas agresivo
-		if (vida <= 45 and fase_2){self.cambioFase()}
+		if (vida <= 50 and fase_2){self.cambioFase()}
 	}
 	
 	//metodo que se activa en el cambio de fase

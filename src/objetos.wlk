@@ -53,7 +53,6 @@ class Espada {
 
 
 object espadaMaestra inherits Espada(poder=10,position=game.at(9,6)) {
-	const property encantamiento = true	
 	
 	override method image() = "espada_maestra.png"
 	

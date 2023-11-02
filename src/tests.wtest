@@ -1,6 +1,38 @@
+import personajes.*
+import combate.*
+import zelda.*
+import utiles.*
+import objetos.*
+import wollok.game.*
 
-test "testX" {
-
-	assert.that(true)
-
+describe "zelda"{
+	
+	const espada = new Espada(position=game.origin())
+	const batalla = new Batalla()
+	
+	test "1. Poder Wollink"{
+		assert.equals(5, prota.poder())
+		//hago aprecer y equipo la espada de  madera
+		espada. aparecer()
+		espada.recogerEspada()
+		//compruebo que el poder se sume bien
+		assert.equals(10, espada.poder())
+		assert.equals(15, prota.poder())
+		//hago aparecer la espada maestra
+		espadaMaestra.aparecer()
+		espadaMaestra.recogerEspada()
+		//compruebo que el poder se sume bien
+		assert.equals(10,espadaMaestra.poder())
+		assert.equals(25,prota.poder())
+		assert.equals(#{espadaMaestra,espada}, prota.inventario())
+	}
+	
+	test "2. Poder Ganon"{
+		batalla.iniciar()
+		assert.equals(5,ganon.poder())
+		//le bajo la vida a ganon para probar el cambio de fase
+		ganon.recibirDanio(75)
+		assert.equals(6.5,ganon.poder())
+		assert.equals(72,ganon.vida())
+	}
 }
