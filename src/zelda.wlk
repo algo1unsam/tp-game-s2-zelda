@@ -94,7 +94,7 @@ object mapa {
 		estaEnMapa = false
 		prota.cambiarPosicion(9, 1)
 		distribucion.bosque()
-		espadaMaestra.aparecer()
+		espadaMaestra.aparecer() //la espada aprece
 		}
 	method saleBosque(){
 		lugar = 'mapa'
@@ -102,7 +102,7 @@ object mapa {
 		estaEnMapa = true
 		prota.cambiarPosicion(9,7)
 		distribucion.mapa()
-		espadaMaestra.desaparecer()
+		espadaMaestra.desaparecer() //la espada desaparece cuando entramos al bosque
 	}
 	method entraMontania(){
 		puzzle.iniciar()
@@ -160,7 +160,7 @@ object salidaAldea {
 	}
 	
 	method comprueboSiProtaEstaEnSalida() {
-		return (prota.position() == self.position()) and mapa.estaEnAldea() and not mapa.estaEnMapa() and prota.inventario().size() >=1
+		return (prota.position() == self.position()) and mapa.estaEnAldea() and not mapa.estaEnMapa() and prota.inventario().size() >=1 //hay que agarrar la espada para poder salir
 	}
 }
 object entradaBosque {						

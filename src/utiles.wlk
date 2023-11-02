@@ -1,5 +1,6 @@
 import wollok.game.*
 import personajes.*
+import objetos.*
 
 //Configuracion del teclado y del ataque en direccion que mira el personaje
 object config {
@@ -50,25 +51,30 @@ class Direccion{
 	method vieja_posicion(){return vieja_position}
 	//para evitar problemas si el personaje ataca muy rapido y se pisan las visuals
 	method recibirDanio(_danio){}
+	
+	method golpes(){
+		if(prota.inventario().contains(espadaMaestra)){return ["golpe_arriba_mejorado.png","golpe_abajo_mejorado.png","golpe_izquierda_mejorado.png","golpe_derecha_mejorado.png"]}
+		return ["golpe_arriba.png","golpe_abajo.png","golpe_izquierda.png","golpe_derecha.png"]
+	}
 }
 
 class Arriba inherits Direccion{
-	var property image = "golpe_arriba.png"
+	var property image = self.golpes().get(0)
 	override method position(){return prota.position().up(1)}
 }
 
 class Abajo inherits Direccion{
-	var property image = "golpe_abajo.png"
+	var property image = self.golpes().get(1)
 	override method position(){return prota.position().down(1)}
 }
 
 class Izquierda inherits Direccion{
-	var property image = "golpe_izquierda.png"
+	var property image = self.golpes().get(2)
 	override method position(){return prota.position().left(1)}
 }
 
 class Derecha inherits Direccion{
-	var property image = "golpe_derecha.png"
+	var property image = self.golpes().get(3)
 	override method position(){return prota.position().right(1)}
 }
 

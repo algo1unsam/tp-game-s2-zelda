@@ -22,7 +22,7 @@ class Personaje{
 }
 
 //El personaje que va a mover el jugador
-object prota inherits Personaje(position = game.at(6,6), vida=20, poder=40){
+object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 	var property inventario = #{}
 	var property image =  "pj_abajo.png"
 	var property dir = new Derecha()
@@ -36,13 +36,7 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=40){
 		const sufijo = '.png'
 		image = prefijo + direccion + sufijo	
 	}
-		
-	//agarra el arma del piso y la suma a su inventario
-	method encontrar(armas){
-		game.whenCollideDo(armas,inventario.add(armas))
-		game.removeVisual(armas)
-	}
-	
+			
 	method cambiarPosicion(x, y){position = game.at(x, y)}
 	
 	method recibirDanio(danio){
@@ -68,7 +62,7 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=40){
 }
 
 //enemigo del combate final
-object ganon inherits Personaje(position = game.origin(), vida=100, poder=5){
+object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	var ataques = 10
 	const property zona_ataque = [] //lsita con las posiciones donde va a atacar
 	var fase_2 = true
@@ -141,6 +135,7 @@ object ganon inherits Personaje(position = game.origin(), vida=100, poder=5){
 	
 	method colision(){
 		prota.recibirDanio(poder)
+		self.moverse()
 	}
 }
 
@@ -166,6 +161,7 @@ object princesa inherits Personaje(position = game.at(17,7), vida=1, poder=1){
 		espada.aparecer()
 	}
 	method colision(){}
+	method recibirDanio(danio){}
 }
 
 
