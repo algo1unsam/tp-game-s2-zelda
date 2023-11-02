@@ -1,12 +1,13 @@
 import wollok.game.*
 import zelda.*
 import utiles.*
+import objetos.*
 
 class Personaje{
 	var property position = new Position()
-	var property vida = 100
+	var property vida 
 	var vivo = true
-	var property poder = 100
+	var property poder 
 	
 	//inicia el personaje en el juego
 	method iniciar(){ game.addVisual(self) }
@@ -21,7 +22,7 @@ class Personaje{
 }
 
 //El personaje que va a mover el jugador
-object prota inherits Personaje(position = game.at(6,6)){
+object prota inherits Personaje(position = game.at(6,6), vida=20, poder=40){
 	var property inventario = #{}
 	var property image =  "pj_abajo.png"
 	var property dir = new Derecha()
@@ -67,7 +68,7 @@ object prota inherits Personaje(position = game.at(6,6)){
 }
 
 //enemigo del combate final
-object ganon inherits Personaje(position = game.origin()){
+object ganon inherits Personaje(position = game.origin(), vida=100, poder=5){
 	var ataques = 10
 	const property zona_ataque = [] //lsita con las posiciones donde va a atacar
 	var fase_2 = true
@@ -143,7 +144,8 @@ object ganon inherits Personaje(position = game.origin()){
 	}
 }
 
-object princesa inherits Personaje(position = game.at(17,7)){
+//la princesa aparece al principio pidiendo que la rescatemos
+object princesa inherits Personaje(position = game.at(17,7), vida=1, poder=1){
 	method image() = "zelda_2.png"
 	
 	//evento de aparcion de la princesa (me da la espada de madera)
@@ -157,7 +159,12 @@ object princesa inherits Personaje(position = game.at(17,7)){
 		game.schedule(10000,{self.remover()})		
 	}
 	
-	method remover(){game.removeVisual(self)}
+	//la princesa desaparece pero queda la espada
+	method remover(){
+		game.removeVisual(self)
+		var espada = (new Espada(position=self.position()))
+		espada.aparecer()
+	}
 	method colision(){}
 }
 

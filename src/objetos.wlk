@@ -1,4 +1,5 @@
 import wollok.game.*
+import personajes.*
 
 class Escudo {
 	var property proteccion = 0
@@ -6,11 +7,27 @@ class Escudo {
 
 class Espada {
 	var property poder = 0
+	var property position
+	method image() = "espada.png"
+	
+	method colision(){self.recogerEspada()}
+	
+	method recogerEspada(){
+		prota.inventario().add(self)
+		game.removeVisual(self)
+	}
+	
+	method aparecer(){
+		if(not prota.inventario().contains(self))
+		game.addVisual(self)
+	}
+	
+	method desaparecer(){
+		if (game.allVisuals().contains(self)){
+			game.removeVisual(self)
+		}
+	}
 }
-
-const escudo = new Escudo(proteccion=10)
-
-const espada = new Espada(poder=10)
 
 class EscudoEncantado inherits Escudo(proteccion=30) {
 
@@ -20,11 +37,15 @@ class EscudoEncantado inherits Escudo(proteccion=30) {
 
 const escudoMaestro = new EscudoEncantado()
 
-class EspadaMaestra inherits Espada(poder=30) {
+object espadaMaestra inherits Espada(poder=30,position=game.at(9,6)) {
 	const property encantamiento = true	
+	
+	override method image() = "espada_maestra.png"
+	
+
+	
 }
 
-const espadaMaestra = new EspadaMaestra()
 
 object personaje {
 	

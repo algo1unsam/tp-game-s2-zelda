@@ -27,19 +27,3 @@ class Batalla{
 		game.onTick(1000,"ganon atacar",{=>ganon.atacar()})		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
