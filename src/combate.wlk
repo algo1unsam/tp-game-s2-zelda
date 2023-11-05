@@ -16,6 +16,7 @@ class Batalla{
 		config.configurarTeclas()
 		zelda.bordes()
 		game.whenCollideDo(prota, {objeto=>objeto.colision()})
+		Corazoncitos.iniciar()
 		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))
