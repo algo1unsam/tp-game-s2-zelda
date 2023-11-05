@@ -1,6 +1,6 @@
 import wollok.game.*
 import personajes.*
-
+import sounds.*
 
 object escudo{
 	const proteccion = 40
@@ -14,13 +14,18 @@ object escudo{
 	}
 	method aparecer(){
 		game.addVisual(self)
-		game.onTick(150, "escudo", { if (escudo.comprueboPosicionWollink()) escudo.agarrarEscudo()})
+		sonidos.sound("collect3.wav")
+		sonidos.play()
+		game.onTick(150, "escudo", { if (self.comprueboPosicionWollink()) self.agarrarEscudo()})
 	}
 	method agarrarEscudo(){
+		//sonidos.sound("abroCofre.wav")
 		game.removeVisual(self)
 		game.removeTickEvent("escudo")
 		prota.inventario().add(self)// Llamar acá al método para que Wollink tenga el escudo
 		prota.vida(prota.vida()+proteccion)
+		sonidos.sound("collect.wav")
+		sonidos.play()
 	}
 }
 
@@ -35,11 +40,15 @@ class Espada {
 		prota.inventario().add(self)
 		prota.poder(prota.poder()+poder)
 		game.removeVisual(self)
+		sonidos.sound("collect.wav")
+		sonidos.play()
 	}
 	
 	method aparecer(){
 		if(not prota.inventario().contains(self))
 		game.addVisual(self)
+		sonidos.sound("collect3.wav")
+		sonidos.play()
 	}
 	
 	method desaparecer(){

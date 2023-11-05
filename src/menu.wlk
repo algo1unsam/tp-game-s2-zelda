@@ -1,10 +1,15 @@
 import wollok.game.*
 import personajes.*
+import sounds.*
+
+
 object menu{
 	method iniciar(){
 		game.onTick(400, "animacion", {menuAnimacion.pasarFrame()})
+		game.onTick(2450, "musicaInicio", {sonidos.play()})
 		keyboard.enter().onPressDo{menuAnimacion.enter()}
 		game.addVisual(menuAnimacion)
+
 	}
 }
 object menuAnimacion{
@@ -15,6 +20,7 @@ object menuAnimacion{
 	method enter(){
 		game.removeTickEvent("animacion")
 		game.removeVisual(self)
+		game.removeTickEvent("musicaInicio")
 		princesa.evento()
 	}
 	
