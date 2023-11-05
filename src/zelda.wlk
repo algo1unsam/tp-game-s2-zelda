@@ -4,7 +4,6 @@ import personajes.*
 import objetos.*
 import utiles.*
 import puzzle.*
-import sounds.*
 
 object zelda {
 	method configurar(){	
@@ -133,8 +132,6 @@ object mapa {
 		prota.cambiarPosicion(1, 1)
 		var b = new Batalla()
 		b.iniciar()
-		sonidos.sound("enemigo.mp3")
-		
 		}
 		
 		//metodo vacio para que no me de error
