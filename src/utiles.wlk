@@ -1,6 +1,7 @@
 import wollok.game.*
 import personajes.*
 import objetos.*
+import sonidos.*
 
 //Configuracion del teclado y del ataque en direccion que mira el personaje
 object config {
@@ -14,21 +15,29 @@ object config {
 		}
 		
 		method teclaIzquierda(){
+			sonidos.sound("footstep2.wav")
+			sonidos.play()
 			prota.dir(new Izquierda())
 			prota.mover(prota.position().left(1))
 			prota.mirar('izquierda')
 		}
 		method teclaDerecha(){
+			sonidos.sound("footstep2.wav")
+			sonidos.play()
 			prota.dir(new Derecha())
 			prota.mover(prota.position().right(1))
 			prota.mirar('derecha')
 		}
 		method teclaArriba(){
+			sonidos.sound("footstep2.wav")
+			sonidos.play()
 			prota.dir(new Arriba())
 			prota.mover(prota.position().up(1))
 			prota.mirar('arriba')
 		}
 		method teclaAbajo(){
+			sonidos.sound("footstep2.wav")
+			sonidos.play()
 			prota.dir(new Abajo())
 			prota.mover(prota.position().down(1))
 			prota.mirar('abajo')

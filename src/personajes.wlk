@@ -2,6 +2,7 @@ import wollok.game.*
 import zelda.*
 import utiles.*
 import objetos.*
+import sonidos.*
 
 class Personaje{
 	var property position = new Position()
@@ -47,6 +48,8 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 	}
 	
 	method atacar(){
+		sonidos.sound("espada.wav")
+		sonidos.play()
 		dir.atacar(poder)
 		//agregamos el sprite del ataque al tablero
 		game.addVisual(dir)
