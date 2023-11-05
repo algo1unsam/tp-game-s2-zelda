@@ -3,7 +3,7 @@ import personajes.*
 
 
 object escudo{
-	const proteccion = 30
+	const proteccion = 40
 	const property position = game.at(9,9)
 	method colision(){}
 	method image() {

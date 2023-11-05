@@ -174,3 +174,27 @@ object distribucion{
 		matriz_activa.clear()
 	}
 }
+
+object Corazoncitos{
+	var property position = game.at(0,11)
+	var vida = prota.vida()
+	const sufijo = '.png'
+	var property corazones = "corazones_1" //aca va la imagen de un cubo rojo
+
+	method image(){return corazones + sufijo}
+
+	method iniciar() {
+		game.addVisual(self)
+		self.chequeoVida(prota.vida())
+	} 
+
+	method chequeoVida(vidaProta){
+		if (vidaProta <= 40 and vidaProta > 20){
+			corazones = "corazones_2"
+		}else if(vidaProta <= 20){
+			corazones = "corazones_3"
+		}
+	}
+
+	method colision(){}
+}
