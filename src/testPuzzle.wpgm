@@ -1,5 +1,6 @@
 import wollok.game.*
 import puzzle.*
+import personajes.*
 
 program puzzle{
   game.width(10)

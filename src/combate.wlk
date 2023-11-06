@@ -10,11 +10,13 @@ class Batalla{
 	
 	method iniciar(){
 		game.clear()
+		game.addVisual(mapa)
 		_heroe.iniciar()
 		enemigo.iniciar()
 		config.configurarTeclas()
 		zelda.bordes()
 		game.whenCollideDo(prota, {objeto=>objeto.colision()})
+		Corazoncitos.iniciar()
 		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))
@@ -26,19 +28,3 @@ class Batalla{
 		game.onTick(1000,"ganon atacar",{=>ganon.atacar()})		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
