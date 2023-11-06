@@ -66,7 +66,7 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 		super()
 		sonidos.sound("death.wav")
 		sonidos.play()
-		muerte.morir("bromita.jpg") //recibe como parametro la imagen de "Game Over")
+		muerte.morir("perdiste.png") //recibe como parametro la imagen de "Game Over")
 	}
 }
 
@@ -144,7 +144,7 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	override method morir(){
 		super()
 		juegoGanado.play()
-		muerte.morir("bromita2.jpg")//Pasar la iamgen de "Ganaste!"
+		muerte.morir("ganaste.png")//Pasar la iamgen de "Ganaste!"
 	}
 	
 	method colision(){
