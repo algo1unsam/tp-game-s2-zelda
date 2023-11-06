@@ -1,7 +1,6 @@
 import wollok.game.*
 import personajes.*
-import sounds.*
-
+import sonidos.*
 
 object menu{
 	method iniciar(){
@@ -9,7 +8,7 @@ object menu{
 		game.onTick(2450, "musicaInicio", {sonidos.play()})
 		keyboard.enter().onPressDo{menuAnimacion.enter()}
 		game.addVisual(menuAnimacion)
-
+	
 	}
 }
 object menuAnimacion{
