@@ -117,6 +117,8 @@ object muerte{
 		game.clear()
 		image=imagen
 		game.addVisual(self)
+		musicaBatalla.pause()
+
 	}
 }
 

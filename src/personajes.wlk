@@ -15,7 +15,8 @@ class Personaje{
 	
 	//validacion de si el personaje esta muerto
 	method checkMuerto(){
-		if (vida <= 0){self.morir()}
+		if (vida <= 0){self.morir()
+		}
 	}
 	
 	//la idea es usarlo para terminar el juego		
@@ -45,6 +46,11 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 		console.println("wollink:"+vida.toString()) //Debug de la vida del personaje
 		self.checkMuerto()
 		Corazoncitos.chequeoVida(vida)
+<<<<<<< HEAD
+=======
+		sonidos.sound("danioZelda.wav")
+		sonidos.play()
+>>>>>>> delfi2
 	}
 	
 	method atacar(){
@@ -61,6 +67,8 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 	
 	override method morir(){
 		super()
+		sonidos.sound("death.wav")
+		sonidos.play()
 		muerte.morir("bromita.jpg") //recibe como parametro la imagen de "Game Over")
 	}
 }
@@ -117,6 +125,8 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 		console.println("ganon:"+vida.toString()) //Debug para ver la vida
 		self.moverse()
 		self.checkMuerto()
+		sonidos.sound("danioGanon.wav")
+		sonidos.play()
 		//en el cambio de fase se cura y se vuelve mas agresivo
 		if (vida <= 50 and fase_2){self.cambioFase()}
 	}
@@ -125,6 +135,8 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	method cambioFase(){
 		self.curarse()
 		self.rugir()
+		sonidos.sound("rugido.mp3")
+		sonidos.play()
 		//vamoas a incrementar la dificultad
 		game.removeTickEvent("ganon moverse")
 		game.onTick(3000,"ganon moverse rapido",{=>self.moverse()})
@@ -134,6 +146,7 @@ object ganon inherits Personaje(position = game.origin(), vida=120, poder=5){
 	
 	override method morir(){
 		super()
+		juegoGanado.play()
 		muerte.morir("bromita2.jpg")//Pasar la iamgen de "Ganaste!"
 	}
 	
