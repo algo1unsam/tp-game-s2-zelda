@@ -133,13 +133,10 @@ object mapa {
 		prota.cambiarPosicion(1, 1)
 		var b = new Batalla()
 		b.iniciar()
-<<<<<<< HEAD
-		sonidos.sound("enemigo.mp3")
-=======
 
 		musicaBatalla.shouldLoop(true)
 		musicaBatalla.play()
->>>>>>> delfi2
+
 		}
 		
 		//metodo vacio para que no me de error
@@ -227,7 +224,7 @@ object entradaCastillo {
 	}
 	
 	method comprueboSiProtaEstaEnEntrada() {	
-		return (prota.position() == self.position()) and not mapa.estaEnCastillo() and mapa.estaEnMapa()//////SUPERCLASE de entrada y de salida (fabri)
+		return (prota.position() == self.position()) and not mapa.estaEnCastillo() and mapa.estaEnMapa()
 	}
 }
 

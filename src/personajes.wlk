@@ -46,11 +46,8 @@ object prota inherits Personaje(position = game.at(6,6), vida=20, poder=5){
 		console.println("wollink:"+vida.toString()) //Debug de la vida del personaje
 		self.checkMuerto()
 		Corazoncitos.chequeoVida(vida)
-<<<<<<< HEAD
-=======
 		sonidos.sound("danioZelda.wav")
 		sonidos.play()
->>>>>>> delfi2
 	}
 	
 	method atacar(){
