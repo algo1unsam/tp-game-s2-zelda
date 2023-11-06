@@ -109,7 +109,7 @@ class CuboRojo{
 
 //Objeto que me termian el juego cuando uno de los personajes se muere
 object muerte{
-	var property position = game.at(1,1)
+	var property position = game.at(0,0)
 	var property image 
 	
 	//cuando un personaje muere se invoca la pantalla de fin de juego, se pasa como parametro el asset
