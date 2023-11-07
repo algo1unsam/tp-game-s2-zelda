@@ -137,7 +137,8 @@ object mapa {
 		lugar = 'castillo'
 		estaEnMapa = false
 		prota.cambiarPosicion(1, 1)
-		sonidos.sound("enemigo.mp3")
+		
+		musicaBatalla.play()
 		var b = new Batalla()
 		b.iniciar()
 		}
