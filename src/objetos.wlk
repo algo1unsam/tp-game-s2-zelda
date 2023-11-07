@@ -14,7 +14,7 @@ object escudo{
 	}
 	method aparecer(){
 		game.addVisual(self)
-		sonidos.sound("collect3.wav")
+		sonidos.sound("abroCofreBueno.wav")
 		sonidos.play()
 		game.onTick(150, "escudo", { if (self.comprueboPosicionWollink()) self.agarrarEscudo()})
 	}

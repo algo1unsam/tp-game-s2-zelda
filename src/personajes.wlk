@@ -167,7 +167,3 @@ object princesa inherits Personaje(position = game.at(17,7), vida=1, poder=1){
 	method colision(){}
 	method recibirDanio(danio){}
 }
-
-
-
-
