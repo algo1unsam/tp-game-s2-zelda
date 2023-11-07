@@ -18,6 +18,7 @@ class Batalla{
 		game.whenCollideDo(prota, {objeto=>objeto.colision()})
 		Corazoncitos.iniciar()
 		
+		
 		//posiciono a los personajes
 		_heroe.position(_heroe.position().left(1))
 		enemigo.position(enemigo.position().right(3))
