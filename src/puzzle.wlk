@@ -45,12 +45,16 @@ class Botones{
 //Agrega el boton que aprieto a la lista (sólo si no esta apretado)
 //Si es el correcto, cambia el estado a "apretado".
 //Si es incorrecto, borro la lista de botones apretados para que todos se puedan apretar de vuelta	
+	method controlarBoton(){
+		if (self.validarOrden())
+				{apretado = true}
+			else {cofre.borrarBotones()}
+	}
+	
 	method apretarBoton(){
 		if (not apretado){	
 			cofre.agregarBoton(self)
-			if (self.validarOrden())
-				{apretado = true}
-			else {cofre.borrarBotones()}
+			self.controlarBoton()
 		}
 		
 	}
