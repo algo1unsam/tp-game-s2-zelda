@@ -1,0 +1,18 @@
+import wollok.game.*
+import puzzle.*
+import personajes.*
+
+program puzzle{
+  game.width(10)
+  game.height(10)
+  game.cellSize(32)
+  game.title("prueba puzzle")
+  game.addVisual(boton1)
+  game.addVisual(boton2)
+  game.addVisual(boton3)
+  game.addVisual(cofre)
+  game.addVisualCharacter(wollink)
+  juego.iniciar()
+  keyboard.p().onPressDo{ game.say(wollink,cofre.apretados()) }
+  game.start()
+  }
